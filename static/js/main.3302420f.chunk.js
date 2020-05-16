@@ -1,0 +1,2 @@
+(this.webpackJsonpcalendar=this.webpackJsonpcalendar||[]).push([[0],{25:function(e,t,n){e.exports=n(72)},30:function(e,t,n){},31:function(e,t,n){},72:function(e,t,n){"use strict";n.r(t);var a=n(0),r=n.n(a),c=n(3),o=n.n(c),l=(n(30),n(74)),u=(n(31),function(){return r.a.createElement("div",{className:"App"},r.a.createElement(l.a,{type:"primary"},"Button"))});o.a.render(r.a.createElement(r.a.StrictMode,null,r.a.createElement(u,null)),document.getElementById("root"))}},[[25,1,2]]]);
+//# sourceMappingURL=main.3302420f.chunk.js.map
