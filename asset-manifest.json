@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/calendar/static/css/main.a231459d.chunk.css",
-    "main.js": "/calendar/static/js/main.3302420f.chunk.js",
-    "main.js.map": "/calendar/static/js/main.3302420f.chunk.js.map",
+    "main.css": "/calendar/static/css/main.9295def7.chunk.css",
+    "main.js": "/calendar/static/js/main.9a9998a7.chunk.js",
+    "main.js.map": "/calendar/static/js/main.9a9998a7.chunk.js.map",
     "runtime-main.js": "/calendar/static/js/runtime-main.c90d7201.js",
     "runtime-main.js.map": "/calendar/static/js/runtime-main.c90d7201.js.map",
-    "static/css/2.d7262850.chunk.css": "/calendar/static/css/2.d7262850.chunk.css",
-    "static/js/2.f8f90653.chunk.js": "/calendar/static/js/2.f8f90653.chunk.js",
-    "static/js/2.f8f90653.chunk.js.map": "/calendar/static/js/2.f8f90653.chunk.js.map",
+    "static/css/2.d374be5a.chunk.css": "/calendar/static/css/2.d374be5a.chunk.css",
+    "static/js/2.3af749f4.chunk.js": "/calendar/static/js/2.3af749f4.chunk.js",
+    "static/js/2.3af749f4.chunk.js.map": "/calendar/static/js/2.3af749f4.chunk.js.map",
     "index.html": "/calendar/index.html",
-    "precache-manifest.1e124fdc9a10f2492c2700f226238070.js": "/calendar/precache-manifest.1e124fdc9a10f2492c2700f226238070.js",
+    "precache-manifest.a51b05c408e2e30ab1ae86bb55c3bf3a.js": "/calendar/precache-manifest.a51b05c408e2e30ab1ae86bb55c3bf3a.js",
     "service-worker.js": "/calendar/service-worker.js",
-    "static/css/2.d7262850.chunk.css.map": "/calendar/static/css/2.d7262850.chunk.css.map",
-    "static/css/main.a231459d.chunk.css.map": "/calendar/static/css/main.a231459d.chunk.css.map",
-    "static/js/2.f8f90653.chunk.js.LICENSE.txt": "/calendar/static/js/2.f8f90653.chunk.js.LICENSE.txt"
+    "static/css/2.d374be5a.chunk.css.map": "/calendar/static/css/2.d374be5a.chunk.css.map",
+    "static/css/main.9295def7.chunk.css.map": "/calendar/static/css/main.9295def7.chunk.css.map",
+    "static/js/2.3af749f4.chunk.js.LICENSE.txt": "/calendar/static/js/2.3af749f4.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.c90d7201.js",
-    "static/css/2.d7262850.chunk.css",
-    "static/js/2.f8f90653.chunk.js",
-    "static/css/main.a231459d.chunk.css",
-    "static/js/main.3302420f.chunk.js"
+    "static/css/2.d374be5a.chunk.css",
+    "static/js/2.3af749f4.chunk.js",
+    "static/css/main.9295def7.chunk.css",
+    "static/js/main.9a9998a7.chunk.js"
   ]
 }
