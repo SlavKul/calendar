@@ -1,0 +1,37 @@
+.modalOverlay{
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, .5);
+}
+  
+
+.modalWindow{
+    width: 90%;
+    height: 600px;
+    border-radius: 5px;
+    background: #fff;
+    margin: 2.5% auto;
+    position: relative;
+}   
+  
+.modal-body{
+    height: 90%;
+}
+.modal-header {
+    padding: 10px 10px;
+    border-bottom: 1px solid grey;
+}
+
+.modalClose {
+    float: right;
+    cursor: pointer;
+    size: 10px;
+}
+
+.modal-title {
+    font-size: 1.5rem;
+}
+
