@@ -6,7 +6,8 @@ const Event = () =>{
             <td>Name of event</td>
             <td>11:00 05.08</td>
             <td>12:00 05.08</td>
-            <td>Attendees</td>
+            <td>Test Location</td>
+            <td>20</td>
         </tr>
     )
 }

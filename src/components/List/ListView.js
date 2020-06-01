@@ -1,6 +1,6 @@
 import React from 'react'
-import Header from '../Header'
-import ListOfMonth from '../ListOfMonth'
+import Header from './Header'
+import ListOfMonth from './ListOfMonth'
 
 const List = ({date}) => {
     //const [count, setCount] = useState(date);

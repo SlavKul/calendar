@@ -1,7 +1,7 @@
 import React from 'react'
-import './style.css'
+import './AddEditModal.css'
 
-class AddModal extends React.Component {
+class AddEditModal extends React.Component {
     state={
         isShown: this.props.isShown,
     }
@@ -31,7 +31,7 @@ class AddModal extends React.Component {
                             <label>Type</label>
                             <input type="text" name="last-name"/>
                         </div>
-                        <hr/>
+                        <div class="ui clearing divider"></div>
                         <button className="mini ui right floated button" type="submit">Submit</button>
                     </form>     
                     </div>
@@ -44,4 +44,4 @@ class AddModal extends React.Component {
     }
 }
 
-export default AddModal
+export default AddEditModal
