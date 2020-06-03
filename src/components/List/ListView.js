@@ -1,12 +1,17 @@
 import React from 'react'
-
 import ListOfMonth from './ListOfMonth'
 
-const List = ({date}) => {
+const List = (props) => {
+    const {date, nextYear, previousYear} = props
 
     return (
         <div>
-            <ListOfMonth />
+            <div>
+                <i className="large chevron left icon" onClick={previousYear}></i>
+                <p style={{display: 'inline'}}>{date.format('YYYY')}</p>
+                <i className="large chevron right icon" onClick={nextYear}></i>
+            </div>
+            <ListOfMonth date={date}/> 
         </div>
     )
 }

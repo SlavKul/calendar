@@ -8,6 +8,7 @@ const tabs = ['list', 'calendar']
 
 class App extends React.Component {
   state = {
+    customDate: moment(),
     currentDate: moment(),
     activeTab: tabs[0],
     isAddModalOpen: false,
@@ -31,12 +32,30 @@ class App extends React.Component {
     this.setState({
       isAddModalOpen: false
     })
-}
+  }
+
+  navigateToNextYear = () => {
+    const newDate = this.state.customDate.clone().add(1 , 'year')
+    this.setState({
+      customDate: newDate
+    })
+  }
+
+  navigateToPreviousYear = () => {
+    const newDate = this.state.customDate.clone().subtract(1 , 'year')
+    console.log(this.state.customDate.format('YYYY'), 'CLicking preveios year', newDate.format('YYYY'))
+    this.setState({
+      customDate: newDate
+    })
+  }
 
   render(){
     let content = <h1>Calendar</h1>
     if(this.state.activeTab === tabs[0]){
-      content = <ListView date={this.props.date}/>
+      content = <ListView 
+        date={this.state.customDate}
+        nextYear={this.navigateToNextYear}
+        previousYear={this.navigateToPreviousYear}/>
     }
     return (
       <div>

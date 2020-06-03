@@ -16,8 +16,8 @@ class MonthHeader extends React.Component {
         let chevron = this.state.isShown? 'chevron up icon' : 'chevron down icon'
         return (
             <div>
-                <div className="ui segment" name={this.props.name} date={this.props.date.format('YYYY MM')} onClick={this.showContent} style={{color: 'green'}}>
-                    {this.props.children}
+                <div className="ui segment" name={this.props.name} date={this.props.date} onClick={this.showContent} style={{color: 'green'}}>
+                    {this.props.children}, {this.props.date}
                         <p style={{display: 'inline', float: 'left'}}><div className="small ui label">1</div></p>
                         <i className={chevron} style={{float: 'right'}}></i> 
                 </div>
