@@ -5,15 +5,16 @@ import moment from 'moment'
 const ListOfMonth = ({date}) => {
     const todaysMonth = date.months()
     const listOfMonth = moment.months()
-    const listItems = listOfMonth.map((item, index)=>
-        <MonthHeader 
+    const listItems = listOfMonth.map((item, index)=> {
+        const monthDate = date.clone().month(index);
+        return <MonthHeader 
             key={index} 
             name={item} 
             isShown={index === todaysMonth ? true : false} 
-            date={`${date.format('YYYY')} ${index}`}>
+            date={monthDate}>
                 {item}
         </MonthHeader>
-    )
+    })
     return (
         <div  style={{padding: '0px 10px'}}>
             <ul style={{paddingInlineStart: '0px'}}>

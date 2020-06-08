@@ -22,7 +22,7 @@ class Header extends React.Component {
                     <div className="right menu">
                         <div className="item">
                             <div className="ui transparent icon input">
-                                <button className="mini ui right floated button" onClick={this.props.openModal}>Click</button>
+                                <button className="mini ui right floated button" onClick={this.props.openModal}>New event</button>
                             </div>
                         </div>
                     </div>

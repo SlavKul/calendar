@@ -1,13 +1,10 @@
 import React from 'react'
 
-const Event = () =>{
+const Event = (props) =>{
+    console.log('Rendered Event')
     return (
         <tr>
-            <td>Name of event</td>
-            <td>11:00 05.08</td>
-            <td>12:00 05.08</td>
-            <td>Test Location</td>
-            <td>20</td>
+            <td>{props.event.notes}</td>
         </tr>
     )
 }
