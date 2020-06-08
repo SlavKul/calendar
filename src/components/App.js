@@ -50,6 +50,7 @@ class App extends React.Component {
   }
 
   render(){
+    console.log('RENDER APP')
     let content = <h1>Calendar</h1>
     if(this.state.activeTab === tabs[0]){
       content = <ListView 

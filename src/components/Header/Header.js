@@ -8,6 +8,7 @@ class Header extends React.Component {
         activeTab: 'listView'
     }
     render(){
+        console.log('RENDER HEADER')
         const tabs = this.props.tabs.map((tab)=>{
             let classes = 'item'
             if(tab === this.props.activeTab){

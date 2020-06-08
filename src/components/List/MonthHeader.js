@@ -3,11 +3,16 @@ import axios from 'axios'
 import Event from './Event'
 
 class MonthHeader extends React.Component {
-    state={
-        isShown: this.props.isShown,
-        events: [],
-        numberOfEvents: 0,
+    constructor(props){
+        super(props)
+        this.state={
+            isShown: this.props.isShown,
+            events: [],
+            numberOfEvents: 0,
+        }
+        console.log('Constructor', this.props.isShown, this.props.date.format('YYYY-MM-DD'))
     }
+ 
 
     componentDidMount () {
         console.log('DidMount')
@@ -29,7 +34,7 @@ class MonthHeader extends React.Component {
     }
 
     componentDidUpdate(prevProps){
-        console.log(prevProps)
+        console.log(this.state.isShown, prevProps)
         console.log('DidUpdate')
         const startDate = this.props.date.startOf('month').format('YYYY-MM-DD')
         const endDate = this.props.date.endOf('month').format('YYYY-MM-DD')
@@ -44,6 +49,13 @@ class MonthHeader extends React.Component {
                 })
         }
     }
+
+    /*shouldComponentUpdate(nextProps){
+        if(this.state.isShown === nextProps.isShown){
+            return false
+        }
+        return true
+    }*/
 
     showContent = () =>{
         console.log('I show content')

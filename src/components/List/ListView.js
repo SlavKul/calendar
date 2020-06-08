@@ -3,7 +3,7 @@ import ListOfMonth from './ListOfMonth'
 
 const List = (props) => {
     const {date, nextYear, previousYear} = props
-
+    console.log('RENDER LIST_VIEW')
     return (
         <div>
             <div>

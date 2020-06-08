@@ -3,7 +3,7 @@ import MonthHeader from './MonthHeader'
 import moment from 'moment'
 
 const ListOfMonth = ({date}) => {
-    const todaysMonth = date.months()
+    const todaysMonth = date.month()
     const listOfMonth = moment.months()
     const listItems = listOfMonth.map((item, index)=> {
         const monthDate = date.clone().month(index);
