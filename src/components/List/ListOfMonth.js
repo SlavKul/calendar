@@ -3,14 +3,13 @@ import MonthHeader from './MonthHeader'
 import moment from 'moment'
 
 const ListOfMonth = ({date}) => {
-    const todaysMonth = date.month()
     const listOfMonth = moment.months()
     const listItems = listOfMonth.map((item, index)=> {
         const monthDate = date.clone().month(index);
         return <MonthHeader 
             key={index} 
             name={item} 
-            isShown={index === todaysMonth ? true : false} 
+            isShown={moment().format('YYYY-MM') === monthDate.format('YYYY-MM') ? true : false} 
             date={monthDate}>
                 {item}
         </MonthHeader>
