@@ -7,52 +7,93 @@ class MonthHeader extends React.Component {
         super(props)
         this.state={
             isShown: this.props.isShown,
-            isFetched: this.props.isShown,
+            isFetched: false,
             events: [],
             numberOfEvents: 0,
-            startDate: this.props.date.startOf('month').format('YYYY-MM-DD'),
-            endDate: this.props.date.endOf('month').format('YYYY-MM-DD')
+            //startDate: this.props.date.startOf('month').format('YYYY-MM-DD'),
+            //endDate: this.props.date.endOf('month').format('YYYY-MM-DD')
         }
         console.log('Constructor', this.props.isShown, this.props.date.format('YYYY-MM-DD'))
     }
  
 
     componentDidMount () {
+        const startDate = this.props.date.startOf('month').format('YYYY-MM-DD')
+        const endDate = this.props.date.endOf('month').format('YYYY-MM-DD')
         console.log('DidMount')
-        const url = `http://localhost:8083/v1/calendar/api/events?end=${this.state.endDate}T23%3A59%3A59&start=${this.state.startDate}T00%3A00%3A00`
+        const url = `http://localhost:8083/v1/calendar/api/events?end=${endDate}T23%3A59%3A59&start=${startDate}T00%3A00%3A00`
             axios.get(url)
                 .then(response=> {
                     if(this.state.isShown){
+                        console.log('DIDMOUNT FETCHED EVENTS')
                         return this.setState({
                             events: response.data,
                             isFetched: true,
                             numberOfEvents: response.data.length
                         })
                     }
-                    return this.setState({
-                        numberOfEvents: response.data.length
-                    })
+                    if(response.data.length){
+                        console.log('DIDMOUNT FETCHED ONLY NUMBER')
+                        return this.setState({
+                            numberOfEvents: response.data.length
+                        })
+                    }
                 })
     }
 
-    componentDidUpdate(prevProps){
+    componentDidUpdate(prevProps, prevState){
+        const startDate = this.props.date.startOf('month').format('YYYY-MM-DD')
+        const endDate = this.props.date.endOf('month').format('YYYY-MM-DD')
         console.log('DidUpdate')
         console.log(this.state.isFetched)
-        const url = `http://localhost:8083/v1/calendar/api/events?end=${this.state.endDate}T23%3A59%3A59&start=${this.state.startDate}T00%3A00%3A00`
+        const url = `http://localhost:8083/v1/calendar/api/events?end=${endDate}T23%3A59%3A59&start=${startDate}T00%3A00%3A00`
         if(prevProps.date !== this.props.date){
-            console.log('DATE WAS CHANGED')
-            this.setState({
-                isFetched: this.props.isShown,
-                isShown: this.props.isShown,
-                events: [],
-                numberOfEvents: 0,
-                startDate: this.props.date.startOf('month').format('YYYY-MM-DD'),
-                endDate: this.props.date.endOf('month').format('YYYY-MM-DD')
-            })
+            console.log('DATE WAS CHANGED', this.props.date.startOf('month').format('YYYY-MM-DD'))
+            axios.get(url)
+                .then(response => {
+                    if(response.data.length){
+                        console.log('AFTER UPDATING I HAVE SOME EVENTS', startDate)
+                        if(this.props.isShown){
+                            console.log('AFTER UPDATING I HAVE SOME EVENTS AND IT IS VISIBLE')
+                            return this.setState({
+                                isShown: this.props.isShown,
+                                events: response.data,
+                                numberOfEvents: response.data.length,
+                                isFetched: false,
+                            })  
+                        }
+                        console.log('AFTER UPDATING I HAVE SOME EVENTS')
+                        return this.setState({
+                            isFetched: false,
+                            numberOfEvents: response.data.length,
+                            isShown: this.props.isShown,
+                            events: [],
+                        })
+                    }
+                    if(prevState.numberOfEvents){
+                        this.setState({
+                            events: [],
+                            numberOfEvents: 0,
+                            isShown: this.props.isShown,
+                            isFetched: false,
+                        })
+                    }
+                    console.log('AFTER UPDATING I DO NOT HAVE EVENTS', startDate)
+                    /*this.setState({
+                        isFetched: false,
+                        isShown: this.props.isShown,
+                        events: [],
+                        numberOfEvents: 0,
+                        startDate: this.props.date.startOf('month').format('YYYY-MM-DD'),
+                        endDate: this.props.date.endOf('month').format('YYYY-MM-DD')
+                    })*/
+                })
         }
         if(!this.state.isFetched && this.state.isShown && (prevProps.isShown === false)){
+            console.log('UPDATING FOR INITIALIZE YEAR')
             axios.get(url)
                 .then(response=> {
+                    console.log('DIDUPDATE FETCHED EVENTS')
                     this.setState({
                         events: response.data,
                         numberOfEvents: response.data.length,
