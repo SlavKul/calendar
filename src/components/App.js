@@ -4,7 +4,7 @@ import Header from './Header/Header'
 import AddEditModal from './Modals/AddEditModal/AddEditModal'
 import moment from 'moment'
 
-const tabs = ['list', 'calendar']
+const tabs = ['list', 'calendar', 'history']
 
 class App extends React.Component {
   state = {

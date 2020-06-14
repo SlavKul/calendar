@@ -5,8 +5,9 @@ import Tab from './Tab'
 class Header extends React.Component {
     
     state={
-        activeTab: 'listView'
+        activeTab: 'listView',
     }
+    
     render(){
         console.log('RENDER HEADER')
         const tabs = this.props.tabs.map((tab)=>{
