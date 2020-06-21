@@ -2,6 +2,7 @@ import React from 'react'
 import ListView from './List/ListView'
 import Header from './Header/Header'
 import AddEditModal from './Modals/AddEditModal/AddEditModal'
+import Example from './Modals/AddEditModal/Example'
 import moment from 'moment'
 
 const tabs = ['list', 'calendar', 'history']
@@ -68,6 +69,7 @@ class App extends React.Component {
           openModal={this.openAddModalHandler}>
             {content}
         </Header>
+        <Example/>
         <AddEditModal isShown={this.state.isAddModalOpen} closeModal={this.closeModal}/>
       </div>
     )

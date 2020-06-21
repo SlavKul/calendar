@@ -1,6 +1,7 @@
 import React from 'react'
 import './AddEditModal.css'
 import { Dropdown } from 'semantic-ui-react'
+import Attendees from '../AddEditModal/Attendees/Attendees'
 import {
     DateInput,
     TimeInput,
@@ -33,9 +34,6 @@ class AddEditModal extends React.Component {
         startTime: '',
         endDate: '',
         endTime: '',
-        dateTime: '',
-        datesRange: '',
-        date: '',
     };
 
     handleChange = (event, {name, value}) => {
@@ -50,30 +48,44 @@ class AddEditModal extends React.Component {
             <div className="modalOverlay">
                 <div className=" modalWindow ui segments" style={{margin: '2.5% auto',position: 'relative'}}>
                     <form className="ui form">
-                    <div className="modal-header">
-                        <h3 style={{display: 'inline'}}>New appointment</h3>
-                        <i className="large close icon" style={{float: 'right', marginRight: "0px"}} onClick={this.props.closeModal}/>
-                        <div className="ui icon input" style={{float: 'right', paddingRight: '20px'}}>
-                            <input type="text" name="creator" placeholder="Creator"/>
-                            <i className="user icon"/>  
+                        <div className="modal-header ui right aligned grid" style={{margin: '0px'}}>
+                            <div className="left floated left aligned four wide column" style={{margin: '0px'}}>
+                                <h3>New appointment</h3>
+                            </div>
+                            <div className="left floated left aligned two wide column">
+                                <Dropdown placeholder='Type'  scrolling options={tagOptions} />
+                            </div>
+                            <div className="right floated center aligned two wide column" style={{padding: '10px'}}>
+                                <div className="ui left icon input focus" style={{float: 'right', paddingRight: '20px'}}>
+                                    <i className="user icon"/>  
+                                    <input type="text" name="creator" placeholder="Creator"/>                           
+                                </div>   
+                            </div>
+                            <div className="right floated right aligned one wide column" style={{margin: '0px'}}>
+                                <i className="large close icon" style={{float: 'right', marginRight: "0px", color: 'grey'}} onClick={this.props.closeModal}/>
+                            </div>
                         </div>
-                        
-                        <div className="ui clearing divider"></div>
-                    </div>
-                    <div className="modal-body">
-
-                        <div className="field">
-                            <label>Title</label>
-                            <input type="text" name="title"/>
-                        </div>
-                        <div className="field">
-                            <label>Type</label>
-                            <Dropdown placeholder='Type' selection scrolling options={tagOptions} />
-                        </div>
-                        <div className="field" style={{marginBottom: "0px"}}>
-                            <label>Star/End Time</label>
-                            <div className="four fields" style={{marginBottom: "0px"}}>
-                                <DateInput
+                        <div className="modal-body">
+                        <div class="ui grid">
+                            <div class="twelve wide column">
+                                <div class="ui grid">
+                                    <div class="twelve wide column">
+                                        <div className="field">
+                                            <label>Title</label>
+                                            <input type="text" name="title"/>
+                                        </div>
+                                    </div>
+                                    <div class="two wide column">
+                                        <div className="field">
+                                            <label>Title</label>
+                                            <input type="text" name="title"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="field">
+                                    <label>Star/End Time</label>
+                                    <div className="four fields" style={{marginBottom: "0px"}}>
+                                        <DateInput
                                             name="startDate"
                                             placeholder="Date"
                                             value={this.state.startDate}
@@ -81,8 +93,8 @@ class AddEditModal extends React.Component {
                                             onChange={this.handleChange}
                                             closable
                                             animation='none'
-                                />
-                                <TimeInput
+                                        />
+                                        <TimeInput
                                             name="startTime"
                                             placeholder="Date"
                                             value={this.state.startTime}
@@ -90,9 +102,8 @@ class AddEditModal extends React.Component {
                                             onChange={this.handleChange}
                                             closable
                                             animation='none'
-                                />
-                                <p>:</p>
-                                <DateInput
+                                        />
+                                        <DateInput
                                             name="endDate"
                                             placeholder="Date"
                                             value={this.state.endDate}
@@ -100,8 +111,8 @@ class AddEditModal extends React.Component {
                                             onChange={this.handleChange}
                                             closable
                                             animation='none'
-                                />
-                                <TimeInput
+                                        />
+                                        <TimeInput
                                             name="endTime"
                                             placeholder="Date"
                                             value={this.state.endTime}
@@ -109,24 +120,29 @@ class AddEditModal extends React.Component {
                                             onChange={this.handleChange}
                                             closable
                                             animation='none'
-                                />
+                                        />
+                                    </div>
+                                </div>
+                            <div className="field">
+                                <label>Location</label>
+                                <input type="text" name="location"/>
+                            </div>
+                            <div className="field">
+                                <label>Notes</label>
+                                <textarea type="text" name="notes" rows="9"/>
+                            </div>
+                            </div>
+                            <div class="four wide column">
+                                <div className="field" >
+                                     <Attendees />
+                                </div>
                             </div>
                         </div>
-                        <div className="field">
-                            <label>Location</label>
-                            <input type="text" name="location"/>
-                        </div>
-                        <div className="field">
-                            <label>Notes</label>
-                            <textarea type="text" name="notes" rows="2"/>
-                        </div>
-                        <div className="field">
-                            <label>Attendees:</label>
-                        </div>
-                        <div className="ui clearing divider"></div>
-                        <button className="mini ui right floated button" type="submit">Submit</button>
- 
                     </div>
+                        <div className="modal-footer">
+                            <button className="mini ui right floated button">Custom</button>
+                            <button className="mini ui right floated button" type="submit">Submit</button>
+                        </div>
                     </form>    
                 </div>
             </div>  
