@@ -1,0 +1,7 @@
+.ui.tabular.menu .active.item {
+  color: red;
+}
+
+.ui.tabular.menu .item:hover {
+  color: red;
+}

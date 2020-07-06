@@ -1,40 +1,33 @@
-import React from 'react'
-import Tab from './Tab'
+import React from "react";
+import Tab from "./Tab/Tab";
+import { Button } from "semantic-ui-react";
 
+const tabs = [
+  { label: "List", href: "/list" },
+  { label: "Calendar", href: "/calendar" },
+  { label: "History", href: "/history" },
+];
 
-class Header extends React.Component {
-    
-    state={
-        activeTab: 'listView',
-    }
-    
-    render(){
-        console.log('RENDER HEADER')
-        const tabs = this.props.tabs.map((tab)=>{
-            let classes = 'item'
-            if(tab === this.props.activeTab){
-                classes = 'active item'
-            }
-            return <Tab key={tab} data={tab} classes={classes} switchTab={this.props.switchTab}>{tab}</Tab>
-        })
-        return(
-            <div>
-                <div className="ui top attached tabular menu">
-                    {tabs}
-                    <div className="right menu">
-                        <div className="item">
-                            <div className="ui transparent icon input">
-                                <button className="mini ui right floated button" onClick={this.props.openModal}>New event</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="ui bottom attached active tab segment">
-                    {this.props.children}
-                </div>
-            </div>
-        )
-    }
-}
+const Header = ({ openModal, children }) => {
+  console.log("RENDER HEADER");
+  const listOfTabs = tabs.map((tab, index) => (
+    <Tab key={index} href={tab.href} name={tab.label} />
+  ));
+  return (
+    <>
+      <div className="ui top attached tabular menu">
+        {listOfTabs}
+        <div className="right menu">
+          <div className="item">
+            <Button floated="right" onClick={openModal} type="button">
+              Add event
+            </Button>
+          </div>
+        </div>
+      </div>
+      <div className="ui bottom attached active tab segment">{children}</div>
+    </>
+  );
+};
 
-export default Header
+export default Header;

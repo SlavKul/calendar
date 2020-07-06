@@ -1,9 +1,10 @@
-import React from 'react'
-import MonthHeader from './MonthHeader'
-import moment from 'moment'
+import React from "react";
+import MonthHeader from "./MonthHeader";
+import moment from "moment";
+import axios from "axios";
 
-const ListOfMonth = ({date}) => {
-    const listOfMonth = moment.months()
+const ListOfMonth = ({ date }) => {
+  /*const listOfMonth = moment.months()
     const listItems = listOfMonth.map((item, index)=> {
         const monthDate = date.clone().month(index);
         return <MonthHeader 
@@ -20,7 +21,7 @@ const ListOfMonth = ({date}) => {
                 {listItems.reverse()}
             </ul>
         </div>
-    )
-}
+    )*/
+};
 
-export default ListOfMonth
+export default ListOfMonth;

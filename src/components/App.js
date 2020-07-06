@@ -1,80 +1,84 @@
-import React from 'react'
-import ListView from './List/ListView'
-import Header from './Header/Header'
-import AddEditModal from './Modals/AddEditModal/AddEditModal'
-import Example from './Modals/AddEditModal/Example'
-import moment from 'moment'
-
-const tabs = ['list', 'calendar', 'history']
+import React from "react";
+import ListView from "./List/ListView";
+import Header from "./Header/Header";
+import AddEditForm from "./Modals/AddEditForm/AddEditForm";
+import moment from "moment";
+import { BrowserRouter, Route } from "react-router-dom";
 
 class App extends React.Component {
   state = {
-    customDate: moment(),
-    currentDate: moment(),
-    activeTab: tabs[0],
+    //customDate: moment(),
+    currentDate: moment().locale("cz"),
     isAddModalOpen: false,
-  }
+  };
 
-  switchTabHandler = (data) => {
+  openAddModalHandler = (event) => {
+    event.preventDefault();
+    console.log("Opening...");
     this.setState({
-      activeTab: data
-    }) 
-  }
-
-  openAddModalHandler = () => {
-    console.log('Opening...')
-    this.setState({
-      isAddModalOpen: true
-    }) 
-  }
+      isAddModalOpen: true,
+    });
+  };
 
   closeModal = () => {
-    console.log('Closing...')
+    console.log("Closing...");
     this.setState({
-      isAddModalOpen: false
-    })
-  }
+      isAddModalOpen: false,
+    });
+  };
 
-  navigateToNextYear = () => {
-    const newDate = this.state.customDate.clone().add(1 , 'year')
+  /*navigateToNextYear = () => {
+    const newDate = this.state.customDate.clone().add(1, "year");
     this.setState({
-      customDate: newDate
-    })
-  }
+      customDate: newDate,
+    });
+  };*/
 
-  navigateToPreviousYear = () => {
-    const newDate = this.state.customDate.clone().subtract(1 , 'year')
-    console.log(this.state.customDate.format('YYYY'), 'CLicking preveios year', newDate.format('YYYY'))
+  /*navigateToPreviousYear = () => {
+    const newDate = this.state.customDate.clone().subtract(1, "year");
+    console.log(
+      this.state.customDate.format("YYYY"),
+      "CLicking preveios year",
+      newDate.format("YYYY")
+    );
     this.setState({
-      customDate: newDate
-    })
-  }
+      customDate: newDate,
+    });
+  };*/
 
-  render(){
-    console.log('RENDER APP')
-    let content = <h1>Calendar</h1>
-    if(this.state.activeTab === tabs[0]){
-      content = <ListView 
-        date={this.state.customDate}
-        nextYear={this.navigateToNextYear}
-        previousYear={this.navigateToPreviousYear}/>
-    }
+  render() {
+    const date = moment().locale("cz");
+
+    console.log(date.format("ddd"));
+    console.log("RENDER APP");
     return (
-      <div>
+      <BrowserRouter>
         <Header
-          date={this.state.currentDate} 
-          tabs={tabs}
-          activeTab={this.state.activeTab}
-          switchTab={this.switchTabHandler}
-          openModal={this.openAddModalHandler}>
-            {content}
+          date={this.state.currentDate}
+          openModal={this.openAddModalHandler}
+        >
+          <Route
+            path="/list"
+            render={() => <ListView date={this.state.currentDate} />}
+          />
+          <Route
+            path="/calendar"
+            render={() => <h1>Here should be CALENDAR</h1>}
+          />
+          <Route
+            path="/history"
+            render={() => <h1>Here should be HISTORY PAGE</h1>}
+          />
         </Header>
-        <Example/>
-        <AddEditModal isShown={this.state.isAddModalOpen} closeModal={this.closeModal}/>
-      </div>
-    )
+        {this.state.isAddModalOpen ? (
+          <AddEditForm
+            isShown={this.state.isAddModalOpen}
+            closeModal={this.closeModal}
+          />
+        ) : null}
+      </BrowserRouter>
+    );
   }
 }
-
 
 export default App;
