@@ -4,8 +4,7 @@ import Header from "./Header/Header";
 import AddEditForm from "./Modals/AddEditForm/AddEditForm";
 import moment from "moment";
 import { BrowserRouter, Route } from "react-router-dom";
-import axios from "axios";
-import ApptDetails from "./Modals/ApptDetails/ApptDetails";
+import Calendar from "./Calendar/Calendar";
 
 class App extends React.Component {
   state = {
@@ -93,6 +92,32 @@ class App extends React.Component {
     });
   };
 
+  /*navigateToNextYear = () => {
+    const newDate = this.state.customDate.clone().add(1, "year");
+    this.setState({
+      customDate: newDate,
+    });
+  };*/
+
+  /*navigateToPreviousYear = () => {
+    const newDate = this.state.customDate.clone().subtract(1, "year");
+    console.log(
+      this.state.customDate.format("YYYY"),
+      "CLicking preveios year",
+      newDate.format("YYYY")
+    );
+    this.setState({
+      customDate: newDate,
+    });
+  };*/
+
+  clickHandle = (e) => {
+    console.log(e);
+    this.setState({
+      isAddModalOpen: true,
+    });
+  };
+
   render() {
     console.log(this.state.events);
     console.log("RENDER APP");
@@ -108,7 +133,7 @@ class App extends React.Component {
           />
           <Route
             path="/calendar"
-            render={() => <h1>Here should be CALENDAR</h1>}
+            render={() => <Calendar clickEvent={this.clickHandle} />}
           />
           <Route
             path="/history"
