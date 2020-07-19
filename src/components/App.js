@@ -4,6 +4,7 @@ import Header from "./Header/Header";
 import AddEditForm from "./Modals/AddEditForm/AddEditForm";
 import moment from "moment";
 import { BrowserRouter, Route } from "react-router-dom";
+import Calendar from './Calendar/Calendar'
 
 class App extends React.Component {
   state = {
@@ -46,6 +47,15 @@ class App extends React.Component {
     });
   };*/
 
+
+  clickHandle = (e) =>{
+    console.log(e)
+    this.setState({
+      isAddModalOpen: true
+    })
+  }
+
+
   render() {
     const date = moment().locale("cz");
 
@@ -63,7 +73,7 @@ class App extends React.Component {
           />
           <Route
             path="/calendar"
-            render={() => <h1>Here should be CALENDAR</h1>}
+            render={() => <Calendar clickEvent={this.clickHandle}/>}
           />
           <Route
             path="/history"

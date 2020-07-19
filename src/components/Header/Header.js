@@ -25,7 +25,7 @@ const Header = ({ openModal, children }) => {
           </div>
         </div>
       </div>
-      <div className="ui bottom attached active tab segment">{children}</div>
+      <div className="ui bottom attached active tab segment" style={{margin: '0'}}>{children}</div>
     </>
   );
 };
