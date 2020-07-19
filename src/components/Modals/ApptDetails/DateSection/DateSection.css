@@ -1,0 +1,17 @@
+.event-date {
+  padding: 5px 0px;
+  text-align: center;
+}
+
+.date-title {
+  color: grey;
+  margin: 0px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.date-body {
+  margin: 0px;
+  text-transform: uppercase;
+}

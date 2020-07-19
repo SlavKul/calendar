@@ -1,0 +1,110 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.modal-window {
+  width: 50%;
+  height: 500px;
+  border-radius: 5px;
+  background: #fff;
+  margin: 10% auto;
+  position: relative;
+  overflow: auto;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: auto;
+
+  padding: 10px 10px;
+}
+
+.modal-subHeader {
+  border-bottom: 0.5px solid rgba(34, 36, 38, 0.15);
+}
+
+.modal-body {
+  width: 100%;
+  height: 87%;
+  overflow: auto;
+  padding: 10px;
+}
+
+.header-title {
+  margin: 0px;
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: 2px;
+}
+.modal-body > div > p {
+  display: inline;
+}
+
+.eventType-indicator {
+  height: 18px;
+  width: 18px;
+  margin-top: 4px;
+  margin-left: 5px;
+  border-radius: 5px;
+  background-color: rgb(31, 84, 230);
+}
+
+.close.icon.close-button {
+  font-size: 20px;
+  margin: 0px 4px;
+}
+
+.close.icon.close-button:hover {
+  font-size: 25px;
+  margin: 0px 4px;
+  cursor: pointer;
+}
+
+.icon.remove-button {
+  font-size: 20px;
+  margin: 0px 4px;
+}
+
+.icon.remove-button:hover {
+  font-size: 25px;
+  cursor: pointer;
+}
+.icon.edit-button {
+  font-size: 20px;
+  margin-left: auto;
+}
+
+.icon.edit-button:hover {
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.event-date-section {
+  display: flex;
+  justify-content: space-around;
+  background: #fff;
+  border-radius: 5px;
+  border: 0.5px solid rgba(34, 36, 38, 0.15);
+  margin: 5px;
+  height: 65px;
+  width: auto;
+  position: relative;
+}
+
+.divider {
+  border-left: 1px solid rgba(34, 36, 38, 0.15);
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+}
+
+.detail-section {
+  font-size: 20px;
+}

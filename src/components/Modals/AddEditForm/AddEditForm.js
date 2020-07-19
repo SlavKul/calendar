@@ -72,7 +72,7 @@ class AddEditForm extends React.Component {
     event.preventDefault();
   };
 
-  submitForm = (event) => {
+  /*submitForm = (event) => {
     event.preventDefault();
     console.log("SUBMITING");
     const eventData = {
@@ -93,7 +93,7 @@ class AddEditForm extends React.Component {
           });
         }
       });
-  };
+  };*/
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.startTime === "" && this.state.startTime) {
@@ -264,7 +264,7 @@ class AddEditForm extends React.Component {
                 </div>
                 <Button
                   className="submit-button"
-                  onClick={this.submitForm}
+                  onClick={(event) => this.props.submit(event, this.state)}
                   type="button" //prevent sending data
                 >
                   Create
