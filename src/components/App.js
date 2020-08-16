@@ -4,6 +4,8 @@ import Header from "./Header/Header";
 import AddEditForm from "./Modals/AddEditForm/AddEditForm";
 import moment from "moment";
 import { BrowserRouter, Route } from "react-router-dom";
+import axios from 'axios'
+import ApptDetails from './Modals/ApptDetails/ApptDetails'
 import Calendar from "./Calendar/Calendar";
 
 class App extends React.Component {

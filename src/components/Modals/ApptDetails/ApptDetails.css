@@ -1,59 +1,65 @@
-.modal-overlay {
+.detail-modal-overlay {
   position: fixed;
   top: 0;
   right: 0;
   left: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
 }
 
-.modal-window {
+.detail-modal-window {
   width: 50%;
   height: 500px;
   border-radius: 5px;
   background: #fff;
   margin: 10% auto;
   position: relative;
-  overflow: auto;
 }
 
-.modal-header {
+.detail-modal-header {
+  border-bottom: 0.5px solid rgba(34, 36, 38, 0.15);
+}
+.detail-modal-main-header {
   display: flex;
   align-items: center;
   width: 100%;
-  height: auto;
-
-  padding: 10px 10px;
+  height: 50px;
+  padding: 10px 10px 0px;
 }
 
-.modal-subHeader {
-  border-bottom: 0.5px solid rgba(34, 36, 38, 0.15);
-}
-
-.modal-body {
+.detail-modal-sub-header {
+  display: flex;
+  align-items: center;
   width: 100%;
-  height: 87%;
+  height: 40px;
+
+  padding: 0px 10px 10px;
+}
+.detail-modal-body {
+  width: 100%;
+  height: 390px;
   overflow: auto;
-  padding: 10px;
+  padding: 10px 10px 0px;
 }
 
 .header-title {
   margin: 0px;
   font-size: 30px;
   font-weight: 600;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
 }
-.modal-body > div > p {
+.detail-modal-body > div > p {
   display: inline;
 }
 
 .eventType-indicator {
   height: 18px;
   width: 18px;
-  margin-top: 4px;
-  margin-left: 5px;
+  margin: 0px 5px 0px 0px;
   border-radius: 5px;
   background-color: rgb(31, 84, 230);
+  display: inline-block
 }
 
 .close.icon.close-button {
@@ -98,6 +104,12 @@
   position: relative;
 }
 
+.detail-notes-section{
+  margin: 15px 5px 0px;
+  border-radius: 5px;
+  border: 0.5px solid rgba(34, 36, 38, 0.15);
+}
+
 .divider {
   border-left: 1px solid rgba(34, 36, 38, 0.15);
   position: absolute;
@@ -107,4 +119,10 @@
 
 .detail-section {
   font-size: 20px;
+}
+
+.sub-detail-section{
+  display: inline-block;
+  font-size: 18px;
+  color:  rgba(34, 36, 38, 0.75);
 }
