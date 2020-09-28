@@ -11,7 +11,7 @@ const tabs = [
 const Header = ({ openModal, children }) => {
   console.log("RENDER HEADER");
   const listOfTabs = tabs.map((tab, index) => (
-    <Tab key={index} href={tab.href} name={tab.label} />
+    <Tab key={index} href={tab.href} name={tab.label} style={{backgroundColor: "rgb(240 240 240)"}}/>
   ));
   return (
     <>
@@ -25,7 +25,7 @@ const Header = ({ openModal, children }) => {
           </div>
         </div>
       </div>
-      <div className="ui bottom attached active tab segment" style={{margin: '0'}}>{children}</div>
+      <div className="ui bottom attached active tab segment" style={{margin: '0', backgroundColor: "rgb(240 240 240)"}}>{children}</div>
     </>
   );
 };

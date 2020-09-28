@@ -1,13 +1,13 @@
 import React from "react";
-import ListView from "./List/ListView";
-import Header from "./Header/Header";
+import ListView from "./Modules/List/ListView";
+import Header from "./Modules/Header/Header";
 import AddEditForm from "./Modals/AddEditForm/AddEditForm";
 import moment from "moment";
 import { BrowserRouter, Route } from "react-router-dom";
 import axios from 'axios'
 import ApptDetails from './Modals/ApptDetails/ApptDetails'
-import Calendar from "./Calendar/Calendar";
-
+import Calendar from "./Modules/Calendar/Calendar";
+import Event from './Modules/List/Event/Event'
 class App extends React.Component {
   state = {
     currentDate: moment().locale("cz"),
@@ -149,7 +149,8 @@ class App extends React.Component {
             submit={this.submitForm}
           />
         ) : null}
-        <ApptDetails />
+        {/*<ApptDetails />*/}
+        
       </BrowserRouter>
     );
   }

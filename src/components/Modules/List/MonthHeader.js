@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import Event from "./Event";
+import Event from "./Event/Event";
 
 class MonthHeader extends React.Component {
   constructor(props) {

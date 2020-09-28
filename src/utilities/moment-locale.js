@@ -26,7 +26,7 @@ export const locale_cz = moment.updateLocale("cz", {
     "Zář",
     "Říj",
     "Lis",
-    "Pros",
+    "Pro",
   ],
   weekdaysShort: ["Ne", "Po", "Út", "St", "Čt", "Pá", "So"],
   weekdays: [

@@ -1,6 +1,7 @@
 import React from "react";
-import MonthHeader from "././MonthHeader/MonthHeader";
+import MonthHeader from "./MonthHeader/MonthHeader";
 import axios from "axios";
+import MonthTitle from './MonthTitle/MonthTitle'
 
 class List extends React.Component {
   state = {
@@ -26,6 +27,9 @@ class List extends React.Component {
     console.log("RENDER LIST_VIEW");
     return (
       <div>
+        <MonthTitle date={'Září 2020'}/>
+        <MonthTitle date={'Rijen 2020'}/>
+        <MonthTitle date={'Listopad 2020'}/>
         {this.state.months.reverse().map((month, index) => (
           <MonthHeader
             key={index}
