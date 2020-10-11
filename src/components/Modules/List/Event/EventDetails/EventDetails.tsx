@@ -4,7 +4,9 @@ import CustomTitle from './CustomTitle/CustomTitle'
 import Time from './Time/Time'
 import Location from './Location/Location'
 import Attendees from './Attendees/Attendees'
-import {MyIcon} from '../../../../myComponents/Icon/MyIcon.styles'
+import {MyIcon, MyAnimIcon} from '../../../../myComponents/Icon/MyIcon.styles'
+import {Wrapper} from '../../../../myComponents/Wrapper/Wrapper.styles'
+import {Announcer} from '../../../../myComponents/Announcer/Announcer.styles'
 
 interface EventDetailsProps{
     event?: object
@@ -13,30 +15,37 @@ interface EventDetailsProps{
     showNotes(): void
 }
 
-const EventDetails: React.FC<EventDetailsProps>=({isIconVisible,isNoteVisible, showNotes })=>{
-    
-    const notes = true
+const EventDetails: React.FC<EventDetailsProps>=({isIconVisible, isNoteVisible, showNotes })=>{
+    const [isSettingVisible, setSettingVisibility] = useState<boolean>(false)
+    const [test, setTest] = useState(false)
     return(
     <EventDetailsStyled>
         <Header>
             <CustomTitle/>
-                <MyIcon visible={isIconVisible} name="ellipsis vertical"/>
-                {/*<Popup flowing hoverable position='bottom center' trigger={<MyIcon visible={visible} name="info circle"/>}/>
-                <Creator/>
-                <MyIcon visible={visible} name="pencil alternate"/>
-                <MyIcon visible={visible} name="trash alternate"/>*/}
+            <Announcer/>
+            <Wrapper>
+                {isSettingVisible && <MyAnimIcon test hoverdirection="down" name="info circle"/>}
+                {/*<MyAnimIcon test hoverdirection="down" name="pencil alternate"/>
+                <MyAnimIcon test hoverdirection="down" name="trash alternate"/>*/}
+                <MyAnimIcon hoverdirection="down" name="ellipsis vertical" onClick={()=>setSettingVisibility(!isSettingVisible)}/>
+            </Wrapper>    
         </Header>
         <Body>
             <Time/>
             <Location/>
             <Attendees visible={isIconVisible}/>
-            {/*<MyIcon visible={isIconVisible} name="user plus" />*/}
         </Body>
         <Footer>
-            <MyIcon 
-                visible={isIconVisible}
-                name={isNoteVisible ? "chevron up" : "chevron down"}
-                onClick={showNotes}
+            <MyAnimIcon
+                className={test ? 'clicked' : ''}
+                hoverdirection="up"
+                name={/*isNoteVisible ? "chevron up" : */"chevron down"}
+                onClick={()=>{
+                
+                    setTest(!test)
+                    showNotes()
+                    }
+                }
             />
         </Footer>
     </EventDetailsStyled>

@@ -1,8 +1,9 @@
 import React, {useState} from 'react'
-import {StyledMOnthTitle, Divider} from './MonthTitle.styles'
+import {StyledMonthTitle, Divider} from './MonthTitle.styles'
 import {MyIcon} from '../../../myComponents/Icon/MyIcon.styles'
 import {Header} from '../Event/EventDetails/EventDetails.styles'
 import {Badge} from '../../../myComponents/Badge/Badge.styles'
+import {Wrapper} from '../../../myComponents/Wrapper/Wrapper.styles'
 import Event from '../Event/Event'
 
 interface MonthTitleProps {
@@ -19,9 +20,12 @@ const MonthTitle: React.FC<MonthTitleProps> = ({date}) =>{
     return(
         <>
         <Header >
-            <StyledMOnthTitle>{date}</StyledMOnthTitle>
+            <StyledMonthTitle>{date}</StyledMonthTitle>
             <Badge>6</Badge>
-            <MyIcon name="chevron down" visible={'visible'} onClick={()=>showEvent(!isEventShown)}/>
+            <Wrapper>
+                <MyIcon name="chevron down" visible={'visible'} onClick={()=>showEvent(!isEventShown)}/>
+            </Wrapper>
+            
         </Header>
         <Divider/>
         {isEventShown ? renderEvents : null}

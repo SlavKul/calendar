@@ -4,6 +4,7 @@ import EventType from './EventType/EventType'
 import EventDate from './EventDate/EventDate'
 import EventDetails from './EventDetails/EventDetails'
 import Notes from './EventDetails/Notes/Notes'
+import {MyIcon} from '../../../myComponents/Icon/MyIcon.styles'
 
 interface EventProps{
     event?: object
@@ -19,10 +20,11 @@ const Event: React.FC<EventProps>=()=>{
             onMouseLeave={()=>{
                 setIconVisibility(false)
                 /*toggleNotes(false)*/
-            }}>        
+            }}> 
             <EventContainer>
                 <EventDate date={'25'}/>
-                <PicBlock></PicBlock>
+                <PicBlock>
+                </PicBlock>
                 <EventDetails
                     isIconVisible={isIconVisible}
                     isNoteVisible={isNoteVisible}

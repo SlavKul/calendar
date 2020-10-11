@@ -7,5 +7,6 @@ export const StyledTitle = styled.p`
     text-transform: uppercase;
     letter-spacing: 1px;
     color: #2C3E50;
-    margin: 0px
+    margin: 0px;
+    font-family: "Roboto", sans-serif;
 `

@@ -10,7 +10,7 @@ const EventDate: React.FC<EvenDateProps> = ({date}) => {
     <>
         <EventType/>
         <StyledDate>
-            <div style={{height: '50px'}}>{date}</div>
+            <div style={{height: '50px', lineHeight: '0.8em'}}>{date}</div>
             <div style={{lineHeight: '1em', fontSize: '25px',}}>Pa</div>
         </StyledDate>
     </>

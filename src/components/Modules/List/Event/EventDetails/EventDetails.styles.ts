@@ -1,9 +1,14 @@
-import styled, {css} from 'styled-components'
+import styled, {css, keyframes } from 'styled-components'
 
-interface MyProps {
+interface StyledProps {
     hover?: boolean;
 }
 
+const breatheAnimation = keyframes`
+    from { height: 0px; opacity: 0.6;}
+
+    to { height: auto; opacity: 1; }
+`
 export const EventDetailsStyled = styled.div`
     flex-grow: 4;
     display: flex;
@@ -14,7 +19,7 @@ export const EventDetailsStyled = styled.div`
 export const Header = styled.div`
     margin: 0px;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
 `
 
@@ -31,7 +36,7 @@ export const Footer = styled.div`
 export const WrapperDetail = styled.div`
     font-size: 15px;
     margin-right: 15px;
-    ${(props: MyProps) => props.hover && 
+    ${(props: StyledProps) => props.hover && 
     css`
     cursor: pointer;
         &:hover{
@@ -48,7 +53,22 @@ export const StyledNotes = styled.div`
     margin-top: 10px;
     margin-right: 10px;
     margin-left: 10px;
-
+    /*transition: all 3s ease;*/
+    /*animation-name: ${breatheAnimation};
+    animation-duration: 8s;
+    animation-fill-mode: forwards;*/
+    /*animation-name: changeLetter;
+    animation-duration: 0.1s;
+    @keyframes changeLetter {
+        from {
+            opacity: 0.5;
+            height: 0px;
+        }
+        to {
+            height:100px;
+            opacity: 1;
+        }
+    }*/
     /*h3{
         animation: changeLetter 0.9s 1 linear;
         width:90%;
@@ -65,10 +85,10 @@ export const StyledNotes = styled.div`
     h3 {
         content: " ";
         display: block; 
-        width: 100%;
+        width: 50%;
         height: 1px;
         background: #2C3E50;
-        /*transition:all 0.9s*/
+        transition:all 0.9s
     }  
     
     /*animation: 0.2s slide-down;
