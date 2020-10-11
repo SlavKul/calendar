@@ -3,7 +3,7 @@ import Tab from "./Tab/Tab";
 import { Button } from "semantic-ui-react";
 
 const tabs = [
-  { label: "List", href: "/list" },
+  { label: "List", href: "/" },
   { label: "Calendar", href: "/calendar" },
   { label: "History", href: "/history" },
 ];

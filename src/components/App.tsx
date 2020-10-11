@@ -1,4 +1,5 @@
-import React from "react";
+import React, {useEffect, useContext} from "react";
+import useAxios from 'axios-hooks';
 import ListView from "./Modules/List/ListView";
 import Header from "./Modules/Header/Header";
 import AddEditForm from "./Modals/AddEditForm/AddEditForm";
@@ -8,7 +9,9 @@ import axios from 'axios'
 import ApptDetails from './Modals/ApptDetails/ApptDetails'
 import Calendar from "./Modules/Calendar/Calendar";
 import Event from './Modules/List/Event/Event'
-class App extends React.Component {
+import {CalendarContext} from './App.definitions'
+import {fetchEvents} from './App.utils'
+/*class App extends React.Component {
   state = {
     currentDate: moment().locale("cz"),
     isFetched: false,
@@ -94,7 +97,7 @@ class App extends React.Component {
     });
   };
 
-  /*navigateToNextYear = () => {
+  navigateToNextYear = () => {
     const newDate = this.state.customDate.clone().add(1, "year");
     this.setState({
       customDate: newDate,
@@ -111,7 +114,7 @@ class App extends React.Component {
     this.setState({
       customDate: newDate,
     });
-  };*/
+  };
 
   clickHandle = (e) => {
     console.log(e);
@@ -149,11 +152,41 @@ class App extends React.Component {
             submit={this.submitForm}
           />
         ) : null}
-        {/*<ApptDetails />*/}
         
       </BrowserRouter>
     );
   }
+}*/
+
+const App: React.FC = () => {
+  const currentDate = moment().locale("cz");
+  const start = currentDate
+  .clone()
+  .subtract(1, "month")
+  .startOf("month")
+  ;
+const end = currentDate
+  .clone()
+  .add(5, "year")
+  .startOf("month")
+  
+  useEffect(()=>{
+    console.log(fetchEvents(start, end))
+  }, [])
+  return (
+    <CalendarContext.Provider value={null}>
+      <BrowserRouter>
+        <Header
+          openModal={false}
+        >
+          <Route
+            path="/"
+            render={() => <div>Hello</div>}
+          />
+        </Header>       
+      </BrowserRouter>
+    </CalendarContext.Provider>
+  )
 }
 
 export default App;

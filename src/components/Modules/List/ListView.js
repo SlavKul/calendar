@@ -3,7 +3,7 @@ import MonthHeader from "./MonthHeader/MonthHeader";
 import axios from "axios";
 import MonthTitle from './MonthTitle/MonthTitle'
 
-class List extends React.Component {
+/*class List extends React.Component {
   state = {
     startDate: this.props.date
       .clone()
@@ -44,5 +44,5 @@ class List extends React.Component {
     );
   }
 }
-
+*/
 export default List;
