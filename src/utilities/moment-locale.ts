@@ -1,4 +1,4 @@
-import moment from "moment";
+import moment, { Moment } from "moment";
 export const locale_cz = moment.updateLocale("cz", {
   months: [
     "Leden",
@@ -30,12 +30,29 @@ export const locale_cz = moment.updateLocale("cz", {
   ],
   weekdaysShort: ["Ne", "Po", "Út", "St", "Čt", "Pá", "So"],
   weekdays: [
-    "Pondeli",
-    "Utery",
-    "Streda",
-    "Ctvrtek",
-    "Patek",
+    "Pondělí",
+    "Úterý",
+    "Středa",
+    "Čtvrtek",
+    "Pátek",
     "Sobota",
-    "Nedele",
+    "Neděle",
   ],
 });
+
+export const sortMonthTitleDate = (a: string, b: string): any => {
+  const momentA = moment(a, "YYYY-M");
+  const momentB = moment(b, "YYYY-M");
+
+  return momentA.diff(momentB);
+};
+
+export const sortEventDate = (
+  a: string | undefined,
+  b: string | undefined
+): any => {
+  const momentA = moment(a);
+  const momentB = moment(b);
+
+  return momentA.diff(momentB);
+};

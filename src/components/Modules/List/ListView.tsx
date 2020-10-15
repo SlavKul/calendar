@@ -1,7 +1,12 @@
 import React from "react";
-import MonthHeader from "./MonthHeader/MonthHeader";
-import axios from "axios";
-import MonthTitle from './MonthTitle/MonthTitle'
+import moment from "moment";
+import {
+  useCalendarContext,
+  CalendarContext,
+  EventModel,
+} from "../../App.definitions";
+import MonthTitle from "./MonthTitle/MonthTitle";
+import { sortMonthTitleDate } from "../../../utilities/moment-locale";
 
 /*class List extends React.Component {
   state = {
@@ -18,6 +23,7 @@ import MonthTitle from './MonthTitle/MonthTitle'
         `http://localhost:8083/v1/calendar/api/events/count?end= &start=${this.state.startDate}`
       )
       .then((response) => {
+        console.log(response.data)
         return this.setState({
           months: response.data,
         });
@@ -27,10 +33,10 @@ import MonthTitle from './MonthTitle/MonthTitle'
     console.log("RENDER LIST_VIEW");
     return (
       <div>
-        <MonthTitle date={'Září 2020'}/>
         <MonthTitle date={'Rijen 2020'}/>
         <MonthTitle date={'Listopad 2020'}/>
         {this.state.months.reverse().map((month, index) => (
+          <MonthTitle date={month.month}/>
           <MonthHeader
             key={index}
             name={month.month}
@@ -43,6 +49,20 @@ import MonthTitle from './MonthTitle/MonthTitle'
       </div>
     );
   }
+}*/
+
+interface ListViewProps {
+  data: any[];
 }
-*/
-export default List;
+
+const ListView: React.FC<ListViewProps> = ({ data }) => {
+  console.log("LISTVIEW IS RENDERED");
+  const listOfEvents = data
+    .sort((a, b) => sortMonthTitleDate(a, b))
+    .map((each) => (
+      <MonthTitle key={each[0]} date={each[0]} events={each[1]} />
+    ));
+  return <>{listOfEvents}</>;
+};
+
+export default ListView;

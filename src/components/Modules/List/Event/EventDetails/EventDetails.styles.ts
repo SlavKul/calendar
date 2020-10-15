@@ -1,63 +1,64 @@
-import styled, {css, keyframes } from 'styled-components'
+import styled, { css, keyframes } from "styled-components";
 
 interface StyledProps {
-    hover?: boolean;
+  hover?: boolean;
 }
 
 const breatheAnimation = keyframes`
     from { height: 0px; opacity: 0.6;}
 
     to { height: auto; opacity: 1; }
-`
+`;
 export const EventDetailsStyled = styled.div`
-    flex-grow: 4;
-    display: flex;
-    flex-flow: column;
-    justify-content: space-between;
-`
+  flex-grow: 4;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+`;
 
 export const Header = styled.div`
-    margin: 0px;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-`
+  margin: 0px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+`;
 
 export const Body = styled.div`
-    margin-top: 5px;
-    flex-grow: 2;   
-    display: flex;
-`
+  margin-top: 5px;
+  flex-grow: 2;
+  display: flex;
+`;
 
 export const Footer = styled.div`
-    align-self: center;
-`
+  align-self: center;
+`;
 
 export const WrapperDetail = styled.div`
-    font-size: 15px;
-    margin-right: 15px;
-    ${(props: StyledProps) => props.hover && 
+  font-size: 15px;
+  margin-right: 15px;
+  ${(props: StyledProps) =>
+    props.hover &&
     css`
-    cursor: pointer;
-        &:hover{
-            transition: transform .3s;
-            text-decoration: underline;
-        }
+      cursor: pointer;
+      &:hover {
+        transition: transform 0.3s;
+        text-decoration: underline;
+      }
     `};
-`
+`;
 
 export const StyledNotes = styled.div`
-    /*border: 1px solid #2C3E50;
+  /*border: 1px solid #2C3E50;
     border-radius: 5px;*/
-    padding: 10px;
-    margin-top: 10px;
-    margin-right: 10px;
-    margin-left: 10px;
-    /*transition: all 3s ease;*/
-    /*animation-name: ${breatheAnimation};
+  padding: 10px;
+  margin-top: 10px;
+  margin-right: 10px;
+  margin-left: 10px;
+  /*transition: all 3s ease;*/
+  /*animation-name: ${breatheAnimation};
     animation-duration: 8s;
     animation-fill-mode: forwards;*/
-    /*animation-name: changeLetter;
+  /*animation-name: changeLetter;
     animation-duration: 0.1s;
     @keyframes changeLetter {
         from {
@@ -69,7 +70,7 @@ export const StyledNotes = styled.div`
             opacity: 1;
         }
     }*/
-    /*h3{
+  /*h3{
         animation: changeLetter 0.9s 1 linear;
         width:90%;
     }
@@ -81,17 +82,17 @@ export const StyledNotes = styled.div`
             width: 100%;
         }
     }*/
-    
-    h3 {
-        content: " ";
-        display: block; 
-        width: 50%;
-        height: 1px;
-        background: #2C3E50;
-        transition:all 0.9s
-    }  
-    
-    /*animation: 0.2s slide-down;
+
+  h3 {
+    content: " ";
+    display: block;
+    width: 50%;
+    height: 1px;
+    background: #2c3e50;
+    transition: all 0.9s;
+  }
+
+  /*animation: 0.2s slide-down;
     margin-top:0%;
     @keyframes slide-down {
         from {
@@ -104,15 +105,16 @@ export const StyledNotes = styled.div`
             height: 100%;
         }
     }*/
-`
+`;
 
 export const AttendeePopupContainer = styled.div`
-    height: 200px;
-    background: #ffffff;
-    border: 1px solid #e5e5e5;
-    border-radius: 5px;
-    position: absolute;
-    box-shadow: 0 8px 17px 0 rgba(0, 0, 0, .2), 0 6px 20px 0 rgba(0, 0, 0, .15);
-    overflow: auto;
-    padding: 2px;
-`
+  height: 200px;
+  background: #ffffff;
+  border: 1px solid #e5e5e5;
+  border-radius: 5px;
+  position: absolute;
+  box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.15);
+  overflow: auto;
+  padding: 2px;
+  z-index: 1;
+`;

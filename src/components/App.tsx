@@ -1,16 +1,16 @@
-import React, {useEffect, useContext} from "react";
-import useAxios from 'axios-hooks';
+import React, { useEffect, useContext } from "react";
+import useAxios from "axios-hooks";
 import ListView from "./Modules/List/ListView";
 import Header from "./Modules/Header/Header";
 import AddEditForm from "./Modals/AddEditForm/AddEditForm";
 import moment from "moment";
 import { BrowserRouter, Route } from "react-router-dom";
-import axios from 'axios'
-import ApptDetails from './Modals/ApptDetails/ApptDetails'
+import axios from "axios";
+import ApptDetails from "./Modals/ApptDetails/ApptDetails";
 import Calendar from "./Modules/Calendar/Calendar";
-import Event from './Modules/List/Event/Event'
-import {CalendarContext} from './App.definitions'
-import {fetchEvents} from './App.utils'
+import Event from "./Modules/List/Event/Event";
+import { CalendarContext } from "./App.definitions";
+import { useFetchEvents } from "./App.utils";
 /*class App extends React.Component {
   state = {
     currentDate: moment().locale("cz"),
@@ -30,8 +30,9 @@ import {fetchEvents} from './App.utils'
       .add(5, "year")
       .startOf("month")
       .format("YYYY-MM-DDThh:mm");
-    axios.get(`/events?end=${end}&start=${start}`).then((response) => {
+    axios.get(`/events/map?end=${end}&start=${start}`).then((response) => {
       console.log("REFETCHED AGAIN");
+      console.log(response.data)
       this.setState({
         events: response.data,
         isFetched: true,
@@ -50,7 +51,7 @@ import {fetchEvents} from './App.utils'
       .startOf("month")
       .format("YYYY-MM-DDThh:mm");
     if (prevState.isFetched === true && this.state.isFetched === false) {
-      axios.get(`/events?end=${end}&start=${start}`).then((response) => {
+      axios.get(`/events/map?end=${end}&start=${start}`).then((response) => {
         this.setState({
           events: response.data,
           isFetched: true,
@@ -97,25 +98,6 @@ import {fetchEvents} from './App.utils'
     });
   };
 
-  navigateToNextYear = () => {
-    const newDate = this.state.customDate.clone().add(1, "year");
-    this.setState({
-      customDate: newDate,
-    });
-  };*/
-
-  /*navigateToPreviousYear = () => {
-    const newDate = this.state.customDate.clone().subtract(1, "year");
-    console.log(
-      this.state.customDate.format("YYYY"),
-      "CLicking preveios year",
-      newDate.format("YYYY")
-    );
-    this.setState({
-      customDate: newDate,
-    });
-  };
-
   clickHandle = (e) => {
     console.log(e);
     this.setState({
@@ -134,7 +116,7 @@ import {fetchEvents} from './App.utils'
         >
           <Route
             path="/list"
-            render={() => <ListView date={this.state.currentDate} />}
+            render={() => <ListView />}
           />
           <Route
             path="/calendar"
@@ -160,33 +142,28 @@ import {fetchEvents} from './App.utils'
 
 const App: React.FC = () => {
   const currentDate = moment().locale("cz");
-  const start = currentDate
-  .clone()
-  .subtract(1, "month")
-  .startOf("month")
-  ;
-const end = currentDate
-  .clone()
-  .add(5, "year")
-  .startOf("month")
-  
-  useEffect(()=>{
-    console.log(fetchEvents(start, end))
-  }, [])
+  console.log(currentDate.toISOString());
+  const start = currentDate.clone().subtract(5, "month").startOf("month");
+  const end = currentDate.clone().add(5, "year").startOf("month");
+
+  const { data: events, loading, error, refetch } = useFetchEvents(start, end);
+  console.log(events);
+  const transformedEvents = events ? Object.entries(events) : null;
+  console.log(transformedEvents);
   return (
-    <CalendarContext.Provider value={null}>
+    <CalendarContext.Provider value={events}>
       <BrowserRouter>
-        <Header
-          openModal={false}
-        >
+        <Header openModal={false}>
           <Route
             path="/"
-            render={() => <div>Hello</div>}
+            render={() =>
+              events ? <ListView data={Object.entries(events)} /> : null
+            }
           />
-        </Header>       
+        </Header>
       </BrowserRouter>
     </CalendarContext.Provider>
-  )
-}
+  );
+};
 
 export default App;

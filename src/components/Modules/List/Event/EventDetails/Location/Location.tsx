@@ -1,14 +1,18 @@
-import React from 'react'
-import {Icon} from 'semantic-ui-react'
-import {WrapperDetail} from '../EventDetails.styles'
+import React from "react";
+import { Icon } from "semantic-ui-react";
+import { WrapperDetail } from "../EventDetails.styles";
 
-const Location: React.FC = () =>{
-    return (
-        <WrapperDetail>
-            <Icon  name="map marker alternate"/>
-            Brno
-        </WrapperDetail>
-    )
+interface LocationProps {
+  location: string;
 }
 
-export default Location
+const Location: React.FC<LocationProps> = ({ location }) => {
+  return (
+    <WrapperDetail>
+      <Icon name="map marker alternate" />
+      {location}
+    </WrapperDetail>
+  );
+};
+
+export default Location;

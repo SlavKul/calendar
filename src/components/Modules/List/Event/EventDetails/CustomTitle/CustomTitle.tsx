@@ -1,9 +1,13 @@
 import React from 'react'
 import {StyledTitle} from './CustomTitle.styles'
 
-const CustomTitle: React.FC = () =>{
+interface CustomTitleProps{
+    title: string
+}
+
+const CustomTitle: React.FC<CustomTitleProps> = ({title}) =>{
     return (
-        <StyledTitle>Příklad titulky</StyledTitle>
+    <StyledTitle>{title}</StyledTitle>
     )
 }
 
