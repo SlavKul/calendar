@@ -1,10 +1,4 @@
 import React from "react";
-import moment from "moment";
-import {
-  useCalendarContext,
-  CalendarContext,
-  EventModel,
-} from "../../App.definitions";
 import MonthTitle from "./MonthTitle/MonthTitle";
 import { sortMonthTitleDate } from "../../../utilities/moment-locale";
 

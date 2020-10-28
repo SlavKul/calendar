@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import RichTextEditor from "react-rte";
 import { StyledNotes } from "../EventDetails.styles";
 
 interface NotesProps {
@@ -6,11 +7,15 @@ interface NotesProps {
 }
 
 const Notes: React.FC<NotesProps> = ({ notes }) => {
+  const [value, setValue] = useState(
+    RichTextEditor.createValueFromString(notes, "html")
+  );
   return (
     <>
       <StyledNotes>
-        {/*<h3></h3>*/}
         {notes}
+        {/*} <RichTextEditor readOnly={true} value={value} />
+        <div dangerouslySetInnerHTML={{ __html: notes }} />*/}
       </StyledNotes>
     </>
   );

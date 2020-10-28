@@ -10,7 +10,6 @@ interface AttendeesProps {
 
 const Attendees: React.FC<AttendeesProps> = ({ visible, attendees }) => {
   const [isAttendeePopup, showAttendeePopup] = useState<boolean>(false);
-  console.log("I has been rendered", isAttendeePopup);
 
   useEffect(() => {
     showAttendeePopup(false);

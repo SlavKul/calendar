@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import { EventContainer, Card, PicBlock } from "./Event.styles";
-import EventType from "./EventType/EventType";
 import EventDate from "./EventDate/EventDate";
 import EventDetails from "./EventDetails/EventDetails";
 import Notes from "./EventDetails/Notes/Notes";
-import { MyIcon } from "../../../myComponents/Icon/MyIcon.styles";
 import { EventModel } from "../../../App.definitions";
 
 interface EventProps {
@@ -24,7 +22,7 @@ const Event: React.FC<EventProps> = ({ event }) => {
       }}
     >
       <EventContainer>
-        <EventDate startDate={event.startTime} />
+        <EventDate startDate={event.startTime} eventType={event.eventType} />
         <PicBlock></PicBlock>
         <EventDetails
           event={event}

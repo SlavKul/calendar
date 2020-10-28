@@ -1,15 +1,22 @@
-import React from 'react'
-import {Icon} from 'semantic-ui-react'
-import {WrapperDetail} from '../EventDetails.styles'
+import moment from "moment";
+import React from "react";
+import { Icon } from "semantic-ui-react";
+import { WrapperDetail } from "../EventDetails.styles";
 
-const Time: React.FC = () =>{
-    return (
-        <WrapperDetail>
-            <Icon name="clock outline" />
-            16:30-17:00
-        </WrapperDetail>
-        
-    )
+interface TimeProps {
+  start: string | undefined;
+  end: string | undefined;
 }
 
-export default Time
+const Time: React.FC<TimeProps> = ({ start, end }) => {
+  const startDate = moment(start);
+  const endDate = moment(end).utcOffset(120);
+  return (
+    <WrapperDetail>
+      <Icon name="clock outline" />
+      {`${startDate.format("hh:mm")} - ${endDate.format("hh:mm")}`}
+    </WrapperDetail>
+  );
+};
+
+export default Time;

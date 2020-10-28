@@ -50,6 +50,7 @@ export const WrapperDetail = styled.div`
 export const StyledNotes = styled.div`
   /*border: 1px solid #2C3E50;
     border-radius: 5px;*/
+  width: 730px;
   padding: 10px;
   margin-top: 10px;
   margin-right: 10px;

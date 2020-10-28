@@ -1,111 +1,29 @@
-import React, { useEffect, useContext } from "react";
-import useAxios from "axios-hooks";
+import React, { useEffect, useState } from "react";
 import ListView from "./Modules/List/ListView";
 import Header from "./Modules/Header/Header";
 import AddEditForm from "./Modals/AddEditForm/AddEditForm";
 import moment from "moment";
 import { BrowserRouter, Route } from "react-router-dom";
-import axios from "axios";
-import ApptDetails from "./Modals/ApptDetails/ApptDetails";
 import Calendar from "./Modules/Calendar/Calendar";
-import Event from "./Modules/List/Event/Event";
-import { CalendarContext } from "./App.definitions";
+import {
+  CalendarContext,
+  initialAddEditValues,
+  EventModel,
+  MessageModel,
+} from "./App.definitions";
 import { useFetchEvents } from "./App.utils";
-/*class App extends React.Component {
-  state = {
-    currentDate: moment().locale("cz"),
-    isFetched: false,
-    events: [],
-    isAddModalOpen: false,
-  };
+import { useMutation, useQuery } from "react-query";
+import {
+  createEventMutation,
+  deleteEventMutation,
+  updateEventMutation,
+  fetchEventTypes,
+} from "./Queries";
+import { Dimmer, Loader } from "semantic-ui-react";
+import Message from "./myComponents/Message/Message";
+import dictionary from "../utilities/dictionary";
 
-  componentDidMount() {
-    const start = this.state.currentDate
-      .clone()
-      .subtract(1, "month")
-      .startOf("month")
-      .format("YYYY-MM-DDThh:mm");
-    const end = this.state.currentDate
-      .clone()
-      .add(5, "year")
-      .startOf("month")
-      .format("YYYY-MM-DDThh:mm");
-    axios.get(`/events/map?end=${end}&start=${start}`).then((response) => {
-      console.log("REFETCHED AGAIN");
-      console.log(response.data)
-      this.setState({
-        events: response.data,
-        isFetched: true,
-      });
-    });
-  }
-  componentDidUpdate(prevProps, prevState) {
-    const start = this.state.currentDate
-      .clone()
-      .subtract(1, "month")
-      .startOf("month")
-      .format("YYYY-MM-DDThh:mm");
-    const end = this.state.currentDate
-      .clone()
-      .add(5, "year")
-      .startOf("month")
-      .format("YYYY-MM-DDThh:mm");
-    if (prevState.isFetched === true && this.state.isFetched === false) {
-      axios.get(`/events/map?end=${end}&start=${start}`).then((response) => {
-        this.setState({
-          events: response.data,
-          isFetched: true,
-        });
-      });
-    }
-  }
-
-  submitForm = (event, data) => {
-    event.preventDefault();
-    console.log("SUBMITING");
-    console.log(data);
-    const eventData = {
-      title: data.title,
-      startTime: `${data.startDate}T${data.startTime}`,
-      endTime: `${data.endDate}T${data.endTime}`,
-      attendees: data.attendees,
-      location: data.location,
-      evnet_info_id: 21,
-    };
-    axios.post("/events/create", eventData).then((response) => {
-      if (response.request.status === 200) {
-        console.log("EVENT WAS CREATED");
-        this.setState({
-          isFetched: false,
-          isAddModalOpen: false,
-        });
-      }
-    });
-  };
-
-  openAddModalHandler = (event) => {
-    event.preventDefault();
-    console.log("Opening...");
-    this.setState({
-      isAddModalOpen: true,
-    });
-  };
-
-  closeModal = () => {
-    console.log("Closing...");
-    this.setState({
-      isAddModalOpen: false,
-    });
-  };
-
-  clickHandle = (e) => {
-    console.log(e);
-    this.setState({
-      isAddModalOpen: true,
-    });
-  };
-
-  render() {
+/*render() {
     console.log(this.state.events);
     console.log("RENDER APP");
     return (
@@ -142,25 +60,140 @@ import { useFetchEvents } from "./App.utils";
 
 const App: React.FC = () => {
   const currentDate = moment().locale("cz");
-  console.log(currentDate.toISOString());
-  const start = currentDate.clone().subtract(5, "month").startOf("month");
-  const end = currentDate.clone().add(5, "year").startOf("month");
+  const [addModal, handleAddEditModal] = useState(false);
+  const [isEditing, handleEditing] = useState(false);
+  const [addEditValues, setInitialAddEditValues] = useState<EventModel>(
+    initialAddEditValues
+  );
+  const [messageState, handleMessageState] = useState<Partial<MessageModel>>({
+    visible: false,
+  });
 
-  const { data: events, loading, error, refetch } = useFetchEvents(start, end);
-  console.log(events);
-  const transformedEvents = events ? Object.entries(events) : null;
-  console.log(transformedEvents);
+  const [
+    createEvent,
+    {
+      status: createEventStatus,
+      data: createEventData,
+      error: createEventError,
+    },
+  ] = useMutation(createEventMutation, {
+    onSuccess: () => {
+      refetch();
+      handleMessageState({
+        status: "success",
+        message: dictionary.eventActions.createSuccess,
+        visible: true,
+      });
+    },
+    onError: () => {
+      handleMessageState({
+        status: "success",
+        message: `Chyba ${createEventError}`,
+        visible: true,
+      });
+    },
+  });
+  const { data: eventTypes } = useQuery("eventTypes", fetchEventTypes);
+  console.log("TYPES", eventTypes);
+  const [
+    updateEvent,
+    {
+      status: updateEventStatus,
+      data: updateEventData,
+      error: updateEventError,
+    },
+  ] = useMutation(updateEventMutation, {
+    onSuccess: () => {
+      refetch();
+      handleMessageState({
+        status: "success",
+        message: dictionary.eventActions.updateSuccess,
+        visible: true,
+      });
+    },
+    onError: () => {
+      handleMessageState({
+        status: "success",
+        message: `Chyba`,
+        visible: true,
+      });
+    },
+  });
+
+  const [deleteEvent, { status: deleteEventStatus }] = useMutation(
+    deleteEventMutation,
+    {
+      onSuccess: () => {
+        refetch();
+        handleMessageState({
+          status: "success",
+          message: dictionary.eventActions.deleteSuccess,
+          visible: true,
+        });
+      },
+    }
+  );
+
+  const { isLoading, isError, data: events, error, refetch } = useFetchEvents(
+    currentDate.clone().subtract(10, "month").startOf("month"),
+    currentDate.clone().add(5, "year").startOf("month")
+  );
+
+  const handleCancel = () => {
+    setInitialAddEditValues(initialAddEditValues);
+    handleAddEditModal(false);
+  };
+
+  const openAddEditModal = () => {
+    return (
+      <AddEditForm
+        isVisible={addModal}
+        cancel={handleCancel}
+        submit={createEvent}
+        initialState={addEditValues}
+        refetch={refetch}
+        isEditing={isEditing}
+      />
+    );
+  };
+
+  const renderMessage = () => {
+    return <Message messageState={messageState} />;
+  };
+
   return (
-    <CalendarContext.Provider value={events}>
+    <CalendarContext.Provider
+      value={{
+        events,
+        deleteEvent,
+        updateEvent,
+        handleAddEditModal,
+        setInitialAddEditValues,
+        handleEditing,
+        eventTypes,
+      }}
+    >
       <BrowserRouter>
-        <Header openModal={false}>
+        <Header>
           <Route
             path="/"
+            exact
             render={() =>
-              events ? <ListView data={Object.entries(events)} /> : null
+              deleteEventStatus === "loading" ||
+              createEventStatus === "loading" ||
+              isLoading ? (
+                <Dimmer active inverted blurring style={{ height: "1000px" }}>
+                  <Loader />
+                </Dimmer>
+              ) : (
+                <ListView data={Object.entries(events)} />
+              )
             }
           />
+          <Route path="/calendar" exact render={() => <Calendar />} />
         </Header>
+        {addModal ? openAddEditModal() : null}
+        {renderMessage()}
       </BrowserRouter>
     </CalendarContext.Provider>
   );

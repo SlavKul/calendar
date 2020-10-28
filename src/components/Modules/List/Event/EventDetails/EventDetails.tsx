@@ -17,6 +17,7 @@ import {
 import { Wrapper } from "../../../../myComponents/Wrapper/Wrapper.styles";
 import { Announcer } from "../../../../myComponents/Announcer/Announcer.styles";
 import { EventModel } from "../../../../App.definitions";
+import { useCalendarContext } from "../../../../App.definitions";
 
 interface EventDetailsProps {
   event: EventModel;
@@ -31,6 +32,12 @@ const EventDetails: React.FC<EventDetailsProps> = ({
   showNotes,
   event,
 }) => {
+  const {
+    deleteEvent,
+    handleAddEditModal,
+    setInitialAddEditValues,
+    handleEditing,
+  } = useCalendarContext();
   const [settingsIcons, handleSettingsIcons] = useState({
     exist: false,
     shown: false,
@@ -57,13 +64,20 @@ const EventDetails: React.FC<EventDetailsProps> = ({
               visible={settingsIcons.exist}
               className={settingsIcons.shown && "visible"}
               hoverdirection="down"
-              name="pencil alternate"
+              name="edit"
+              onClick={() => {
+                console.log(event, "CLICK HERE");
+                handleEditing!(true);
+                setInitialAddEditValues!(event);
+                handleAddEditModal!(true);
+              }}
             />
             <MyHiddenFlowedIcon
               visible={settingsIcons.exist}
               className={settingsIcons.shown && "visible"}
               hoverdirection="down"
               name="trash alternate"
+              onClick={() => deleteEvent!(event.id)}
             />
           </>
           <MyFlowedIcon
@@ -93,7 +107,7 @@ const EventDetails: React.FC<EventDetailsProps> = ({
         </Wrapper>
       </Header>
       <Body>
-        <Time />
+        <Time start={event.startTime} end={event.endTime} />
         {event.location ? <Location location={event.location} /> : null}
         <Attendees visible={isIconVisible} attendees={event.attendees} />
       </Body>

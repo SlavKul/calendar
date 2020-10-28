@@ -1,17 +1,40 @@
-
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-.ui.segment{
+.ui.segment {
   margin: 5px 0px 0px 0px;
+}
+
+.ui.form .field .ui.input input,
+.ui.form .fields .field .ui.input input {
+  width: 15px;
+}
+
+.ui[class*="left icon"].input > input {
+  width: 100%;
+  max-width: 100%;
+}
+
+.ui.checkbox input:checked ~ .box:after,
+.ui.checkbox input:checked ~ label:after {
+  opacity: 1;
+  color: #2c3e50;
+}
+
+.ui.checkbox label,
+.ui.checkbox + label {
+  color: #2c3e50;
+  font-weight: 500;
+  -webkit-transition: color 0.1s ease;
+  transition: color 0.1s ease;
 }

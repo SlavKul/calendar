@@ -53,6 +53,7 @@ export const MyHiddenFlowedIcon = styled(MyIcon)`
     &.visible {
       opacity: 1;
       transform: translate(0px, 0px);
+      margin: 0px 3px;
     }
     &.test:hover {
       opacity: 1;
