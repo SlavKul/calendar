@@ -1,4 +1,4 @@
-import moment from "moment";
+import moment, { Moment } from "moment";
 import { createContext, useContext } from "react";
 const currentDate = moment().locale("cz");
 export const CalendarContext = createContext<Partial<CalendarContextType>>({});
@@ -8,11 +8,18 @@ export type CalendarContextType = {
   events: object;
   deleteEvent: (id: number | undefined) => void;
   updateEvent: (payLoad: EventModel) => void;
-  handleAddEditModal: (value: boolean) => void;
+  handleAddEditModal: (value: { isOpen: boolean; isEditing: boolean }) => void;
+  addEditValues: EventModel;
   setInitialAddEditValues: (value: EventModel) => void;
   initialAddEditValues: EventModel;
-  handleEditing: (value: boolean) => void;
+  openAddEditModal: (isEditing: boolean, event?: EventModel) => void;
   eventTypes: EventTypeModel[];
+  pageState: PageStateModel;
+  handlePageState: (value: PageStateModel) => void;
+  handleConfirmModal: (value: object) => void;
+  setCalendarRef: (value: any) => void;
+  currentDate: Moment;
+  handleApptDetails: (value: ApptDetailsModel) => void;
 };
 
 export interface EventModel {
@@ -23,8 +30,8 @@ export interface EventModel {
   creator?: string;
   created?: string;
   updated?: string;
-  startTime?: string;
-  endTime?: string;
+  start?: string;
+  end?: string;
   eventType?: EventTypeModel;
   attendees?: string[];
   branch?: string;
@@ -38,11 +45,11 @@ export const initialAddEditValues = {
   creator: "",
   created: "",
   updated: "",
-  eventType: { id: 1, name: "General", color: "rgb(3, 173, 252)" },
-  branch: "Brno",
+  eventType: { id: 1, color: "rgb(207, 4, 41)", name: "Obecny" },
+  branch: "",
   attendees: [],
-  startTime: currentDate.clone().add(1, "hour").startOf("hour").format(),
-  endTime: currentDate.clone().add(2, "hour").startOf("hour").format(),
+  start: currentDate.clone().add(1, "hour").startOf("hour").format(),
+  end: currentDate.clone().add(2, "hour").startOf("hour").format(),
 };
 
 export interface MessageModel {
@@ -57,25 +64,54 @@ export interface EventTypeModel {
   color: string;
 }
 
+export interface BranchModel {
+  key: string;
+  text: string;
+  value: string;
+}
+
+export interface ConfirmModalModel {
+  isVisible?: boolean | undefined;
+  header?: string | undefined;
+  onConfirm?: any | undefined;
+  onCancel?: any | undefined;
+  content?: string | undefined;
+}
+
 export const branchTypes = [
   {
     key: "Brno",
     text: "Brno",
-    value: "Brno",
+    value: "BRNO",
   },
   {
     key: "Ostrava",
     text: "Ostrava",
-    value: "Ostrava",
+    value: "OSTRAVA",
   },
   {
     key: "Olomouc",
     text: "Olomouc",
-    value: "Olomouc",
+    value: "OLOMOUC",
   },
   {
     key: "Celofiremní",
     text: "Celofiremní",
-    value: "Celofiremní",
+    value: "GENERAL",
   },
+];
+
+export interface PageStateModel {
+  branch: BranchModel;
+  activeView: string;
+}
+
+export interface ApptDetailsModel {
+  visible: boolean;
+  event: null | EventModel;
+}
+
+export const tabs = [
+  { label: "Seznam Udalosti", href: "/list", key: "list" },
+  { label: "Calendar", href: "/calendar", key: "calendar" },
 ];

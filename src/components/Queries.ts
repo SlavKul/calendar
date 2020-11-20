@@ -1,5 +1,5 @@
 import axios from "axios";
-import { EventModel, EventTypeModel } from "./App.definitions";
+import { EventModel } from "./App.definitions";
 
 export const createEventMutation = async (payLoad: EventModel) => {
   const { data } = await axios.post("/events/create", payLoad);

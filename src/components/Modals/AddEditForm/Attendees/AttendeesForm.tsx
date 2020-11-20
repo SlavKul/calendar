@@ -1,42 +1,56 @@
 import React from "react";
-import Attendee from "./Attendee/Attendee";
 import { Input } from "semantic-ui-react";
-import { StyledAttendee } from "../../../Modules/List/Event/EventDetails/Attendees/AttendeesPopup/AttendeesPopup.styles";
+import {
+  StyledAttendee,
+  AttendeeList,
+  EmptyAttendeeList,
+} from "../../../Modules/List/Event/EventDetails/Attendees/AttendeesPopup/AttendeesPopup.styles";
+import Dictionary from "../../../../utilities/dictionary";
+import { MyIcon } from "../../../myComponents/Icon/MyIcon.styles";
 
 interface AttendeesFormProps {
-  name?: string;
-  id?: string;
+  name: string;
+  id: string;
   value: string[] | undefined;
-  addAttendee(event: any): void;
+  addAttendee: (event: any) => void;
+  removeAttendee: (id: number) => void;
 }
 
 const AttendeesForm: React.FC<AttendeesFormProps> = ({
   value,
   addAttendee,
+  removeAttendee,
 }) => {
-  const listOfAttendees = value!.map((attendee) => {
-    return <StyledAttendee>{attendee}</StyledAttendee>;
+  const listOfAttendees = value!.map((attendee, index) => {
+    return (
+      <StyledAttendee key={index}>
+        {attendee}
+        <MyIcon
+          hovercolor={"red"}
+          name="trash alternate"
+          onClick={() => removeAttendee!(index)}
+        />
+      </StyledAttendee>
+    );
   });
   return (
     <>
-      <div>
-        <Input
-          type="text"
-          placeholder="New attendee"
-          autoComplete="off"
-          fluid
-          icon="user plus"
-          onKeyPress={addAttendee}
-          style={{ marginBottom: "5px" }}
-        />
-      </div>
-      <div style={{ overflow: "auto", height: "442px", marginTop: "5px" }}>
+      <Input
+        type="text"
+        autoComplete="off"
+        fluid
+        icon="user plus"
+        onKeyPress={addAttendee}
+      />
+      <AttendeeList>
         {listOfAttendees.length ? (
           listOfAttendees
         ) : (
-          <p className="empty-list">List is empty</p>
+          <EmptyAttendeeList>
+            {Dictionary.attendeeForm.emptyList}
+          </EmptyAttendeeList>
         )}
-      </div>
+      </AttendeeList>
     </>
   );
 };

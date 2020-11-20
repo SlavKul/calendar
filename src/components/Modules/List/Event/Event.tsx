@@ -1,9 +1,16 @@
 import React, { useState } from "react";
-import { EventContainer, Card, PicBlock } from "./Event.styles";
+import {
+  EventContainer,
+  Card,
+  PicBlock,
+  DefaultPicBlock,
+} from "./Event.styles";
 import EventDate from "./EventDate/EventDate";
 import EventDetails from "./EventDetails/EventDetails";
 import Notes from "./EventDetails/Notes/Notes";
 import { EventModel } from "../../../App.definitions";
+import { Image } from "semantic-ui-react";
+import logo from "../../../../logo/logo_edited.png";
 
 interface EventProps {
   event: EventModel;
@@ -22,8 +29,19 @@ const Event: React.FC<EventProps> = ({ event }) => {
       }}
     >
       <EventContainer>
-        <EventDate startDate={event.startTime} eventType={event.eventType} />
-        <PicBlock></PicBlock>
+        <EventDate startDate={event.start} eventType={event.eventType} />
+        <DefaultPicBlock>
+          <Image src={logo} alt="default img" />
+        </DefaultPicBlock>
+        {/*<PicBlock>
+          <Image
+            src={logo}
+            fluid
+            //verticalAlign={"bottom"}
+            //style={{ height: "73px", width: "123px" }}
+          />
+        </PicBlock>*/}
+
         <EventDetails
           event={event}
           isIconVisible={isIconVisible}

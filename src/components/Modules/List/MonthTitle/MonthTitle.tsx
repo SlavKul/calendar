@@ -22,7 +22,7 @@ const MonthTitle: React.FC<MonthTitleProps> = ({ date, events }) => {
   const [isEventShown, showEvent] = useState<boolean>(true);
 
   const renderEvents = events
-    .sort((a, b) => sortEventDate(a.startTime, b.startTime))
+    .sort((a, b) => sortEventDate(a.start, b.end))
     .map((event) => <Event key={event.id} event={event} />);
   return (
     <>

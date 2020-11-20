@@ -1,29 +1,23 @@
 import styled from "styled-components";
+interface Props {
+  isOpen?: boolean;
+  selected?: boolean;
+}
 
 export const StyledInput = styled.div`
   cursor: pointer;
   line-height: 1em;
-  white-space: normal;
-  outline: 0;
-  -webkit-transform: rotateZ(0);
-  transform: rotateZ(0);
   width: 100%;
   min-width: 1em;
   min-height: 2.71428571em;
   background: #fff;
   display: flex;
   justify-content: space-between;
+  //align-items: center;
   padding: 0.78571429em;
   color: rgba(0, 0, 0, 0.87);
-  -webkit-box-shadow: none;
-  box-shadow: none;
-  border: 1px solid transparent;
+  border: 0px solid transparent;
   border-radius: 0.28571429rem;
-  -webkit-transition: width 0.1s ease, -webkit-box-shadow 0.1s ease;
-  transition: width 0.1s ease, -webkit-box-shadow 0.1s ease;
-  transition: box-shadow 0.1s ease, width 0.1s ease;
-  transition: box-shadow 0.1s ease, width 0.1s ease,
-    -webkit-box-shadow 0.1s ease;
 
   &:hover {
     border-color: rgba(34, 36, 38, 0.35);
@@ -42,28 +36,20 @@ export const EventColor = styled.div`
 `;
 
 export const StyledDropdown = styled.div`
+  height: 100%;
   width: 100%;
   cursor: pointer;
   line-height: 1em;
   white-space: normal;
-  outline: 0;
-  -webkit-transform: rotateZ(0);
-  transform: rotateZ(0);
   min-width: 1em;
   min-height: 2.71428571em;
   background: #fff;
   position: relative;
   z-index: 1;
   color: rgba(0, 0, 0, 0.87);
-  -webkit-box-shadow: none;
-  box-shadow: none;
-  border: 1px solid rgba(34, 36, 38, 0.15);
+  border: ${(props: Props) =>
+    props.isOpen ? "1px solid #96c8da" : "1px solid rgba(34, 36, 38, 0.15)"};
   border-radius: 0.28571429rem;
-  -webkit-transition: width 0.1s ease, -webkit-box-shadow 0.1s ease;
-  transition: width 0.1s ease, -webkit-box-shadow 0.1s ease;
-  transition: box-shadow 0.1s ease, width 0.1s ease;
-  transition: box-shadow 0.1s ease, width 0.1s ease,
-    -webkit-box-shadow 0.1s ease;
 `;
 
 export const DropdownMenu = styled.div`
@@ -74,14 +60,17 @@ export const DropdownMenu = styled.div`
   min-height: 2.71428571em;
   background: #fff;
   position: absolute;
-  border: 1px solid rgba(34, 36, 38, 0.15);
+  border: 1px solid #96c8da;
   border-radius: 0.28571429rem;
+  box-shadow: 0px 5px 8px 2px rgba(0, 0, 0, 0.2);
 `;
 export const MenuItem = styled.div`
+  cursor: pointer;
+  color: ${(props: Props) => (props.selected ? "grey" : "black")};
   display: flex;
   padding: 0.78571429rem;
 
   &:hover {
-    background-color: rgba(34, 36, 38, 0.35);
+    background-color: rgba(0, 0, 0, 0.03);
   }
 `;

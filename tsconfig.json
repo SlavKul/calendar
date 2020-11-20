@@ -8,6 +8,7 @@
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
+    "typeRoots": ["node_modules/@types", "./typings.d.ts"],
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,

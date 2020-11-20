@@ -21,9 +21,8 @@ const TextArea: React.FC<TextAreaProps> = ({
       name={name}
       id={id}
       onChange={(event) => onChange(event)}
-    >
-      {value}
-    </StyledTextArea>
+      value={value}
+    />
   );
 };
 

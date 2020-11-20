@@ -3,7 +3,7 @@ import { Icon } from "semantic-ui-react";
 import { WrapperDetail } from "../EventDetails.styles";
 
 interface LocationProps {
-  location: string;
+  location: string | undefined;
 }
 
 const Location: React.FC<LocationProps> = ({ location }) => {

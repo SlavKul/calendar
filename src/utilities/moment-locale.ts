@@ -80,16 +80,8 @@ export const reformatDate = (
 
 export const formatDate = (date: string, time: string): string => {
   const string = `${date}.${time}`;
-  const result = moment(string, "DD.MM.YYYY.HH:mm").add(2, "hours");
 
-  /*const momentDate = moment(date, "DD.MM.YYYY");
-  const momentTime = moment(time, "HH:mm");
-  console.log(momentDate, momentTime);
-  const result = momentDate
-    .set({
-      hour: momentTime.hours(),
-      minute: momentTime.minutes(),
-    })
-    .utc(120);*/
-  return result.toISOString();
+  const result = moment(string, "DD.MM.YYYY.HH:mm");
+  console.log(result.format("YYYY-MM-DDTHH:mm"), "MOMENT");
+  return result.format("YYYY-MM-DDTHH:mm");
 };

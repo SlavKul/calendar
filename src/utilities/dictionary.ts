@@ -20,4 +20,10 @@ export default {
     updateSuccess: "Udalost byla uspesne editovana",
     deleteSuccess: "Udalost byla uspesne smazana",
   },
+  attendeeForm: {
+    emptyList: "Zatim nejsou ucastnici",
+  },
+  general: {
+    newEventButton: "Nova udalost",
+  },
 };

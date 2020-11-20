@@ -6,13 +6,15 @@ interface StyledProps {
   hoverdirection?: string;
   visible?: boolean;
   clicked?: string;
+  hovercolor?: string;
 }
 
 export const MyIcon = styled(Icon)`
   &&&& {
     color: #666;
     &:hover {
-      color: #2c3e50;
+      color: ${(props: StyledProps) =>
+        props.hovercolor ? props.hovercolor : "#2c3e50"};
       transform: scale3d(1.25, 1.25, 1);
       transition: transform 0.2s;
       cursor: pointer;

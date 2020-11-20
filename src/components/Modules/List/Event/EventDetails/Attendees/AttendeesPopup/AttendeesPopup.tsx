@@ -1,7 +1,7 @@
 import React from "react";
 import { AttendeePopupContainer } from "../../EventDetails.styles";
 import { Input, Segment } from "semantic-ui-react";
-import { StyledAttendee } from "./AttendeesPopup.styles";
+import { StyledAttendee, EmptyAttendeeList } from "./AttendeesPopup.styles";
 
 interface Props {
   attendees: string[] | undefined;
@@ -22,7 +22,13 @@ const AttendeesPopup: React.FC<Props> = ({ attendees }) => {
         icon="user plus"
         style={{ marginBottom: "5px" }}
       />
-      <>{listOfAttendees.length ? listOfAttendees : <p>List is empty</p>}</>
+      <>
+        {listOfAttendees.length ? (
+          listOfAttendees
+        ) : (
+          <EmptyAttendeeList>List is empty</EmptyAttendeeList>
+        )}
+      </>
     </AttendeePopupContainer>
   );
 };

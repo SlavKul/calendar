@@ -7,20 +7,21 @@ import {
   DropdownMenu,
   MenuItem,
 } from "./CustomDropdown.styles";
-import { MyRotatedIcon, MyIcon } from "../Icon/MyIcon.styles";
+import { Icon } from "semantic-ui-react";
 
 interface DropdownProps {
   name: string;
   id: string;
   listOptions: EventTypeModel[] | undefined;
   value: EventTypeModel | undefined;
-  onChange: (value: any) => void;
+  onChange: (e: any, value: any) => void;
 }
 
 const CustomDropdown: React.FC<DropdownProps> = ({
   listOptions,
   value,
   onChange,
+  name,
 }) => {
   const [isOpen, handleOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(value);
@@ -28,23 +29,27 @@ const CustomDropdown: React.FC<DropdownProps> = ({
   const onOptionClicked = (value) => () => {
     setSelectedOption(value);
     handleOpen(false);
-    onChange(value);
+    onChange(null, { value: value, name: name });
   };
 
   const eventTypeList = listOptions?.map((type) => (
-    <MenuItem key={type.id} onClick={onOptionClicked(type)}>
+    <MenuItem
+      key={type.id}
+      onClick={onOptionClicked(type)}
+      selected={type.id === value!.id ? true : false}
+    >
       <EventColor color={type.color} />
       {type.name}
     </MenuItem>
   ));
   return (
-    <StyledDropdown>
+    <StyledDropdown isOpen={isOpen}>
       <StyledInput onClick={() => handleOpen(!isOpen)}>
         <div style={{ display: "flex" }}>
           <EventColor color={selectedOption!.color} />
           {selectedOption!.name}
         </div>
-        <MyIcon visible hoverdirection="up" name="chevron down" />
+        <Icon visible={1} name="chevron down" />
       </StyledInput>
       {isOpen ? <DropdownMenu>{eventTypeList}</DropdownMenu> : null}
     </StyledDropdown>

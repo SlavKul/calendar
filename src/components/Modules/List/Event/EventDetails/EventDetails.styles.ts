@@ -30,7 +30,10 @@ export const Body = styled.div`
 `;
 
 export const Footer = styled.div`
-  align-self: center;
+  margin-top: 5px;
+  display: flex;
+  justify-content: space-between;
+  //align-self: center;
 `;
 
 export const WrapperDetail = styled.div`

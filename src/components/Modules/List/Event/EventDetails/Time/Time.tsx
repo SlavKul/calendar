@@ -9,12 +9,14 @@ interface TimeProps {
 }
 
 const Time: React.FC<TimeProps> = ({ start, end }) => {
+  //console.log(start);
   const startDate = moment(start);
-  const endDate = moment(end).utcOffset(120);
+  const endDate = moment(end);
+  //console.log(startDate);
   return (
     <WrapperDetail>
       <Icon name="clock outline" />
-      {`${startDate.format("hh:mm")} - ${endDate.format("hh:mm")}`}
+      {`${startDate.format("HH:mm")} - ${endDate.format("HH:mm")}`}
     </WrapperDetail>
   );
 };

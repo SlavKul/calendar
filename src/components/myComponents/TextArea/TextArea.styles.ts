@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const StyledTextArea = styled.textarea`
   outline: none;
   width: calc(100% - 10px);
-  height: 300px;
+  height: 250px;
   border-color: rgba(34, 36, 38, 0.15);
   border-radius: 3px;
   padding: 5px;

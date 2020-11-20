@@ -1,6 +1,6 @@
 import React from "react";
 import { StyledDate } from "./EventDate.styles";
-import EventType from "../EventType/EventType";
+import EventType from "./EventType/EventType";
 import moment, { Moment } from "moment";
 import { EventTypeModel } from "../../../../App.definitions";
 

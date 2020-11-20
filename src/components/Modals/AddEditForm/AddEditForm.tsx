@@ -21,10 +21,11 @@ import { EventModel } from "../../App.definitions";
 import { reformatDate, formatDate } from "../../../utilities/moment-locale";
 import TextArea from "../../myComponents/TextArea/TextArea";
 import { Button } from "../../myComponents/Button/Button.styles";
-import { Label } from "../../myComponents/Label/Label.styles";
+import { Label, Required } from "../../myComponents/Label/Label.styles";
 import Dictionary from "../../../utilities/dictionary";
 import { useCalendarContext, branchTypes } from "../../App.definitions";
 import CustomDropdown from "../../myComponents/CustomDropdown/CustomDropdown";
+import { DisableValuesPropTypes } from "semantic-ui-calendar-react/dist/types/inputs/BaseInput";
 
 //import RichTextEditor from "react-rte";
 
@@ -50,11 +51,9 @@ const tagOptions = [
 ];
 
 interface Props {
-  isVisible: boolean;
   initialState: EventModel;
   cancel: () => void;
   submit: (test: any) => void;
-  refetch: () => void;
   isEditing: boolean;
 }
 
@@ -62,16 +61,17 @@ const AddEditForm: React.FC<Props> = ({
   cancel,
   submit,
   initialState,
-  isVisible,
-  refetch,
   isEditing,
 }) => {
+  console.log(
+    "%c ADDEDIT MODAL is RENDERED",
+    "background: #1d2594; color: #da2442"
+  );
+  console.log(initialState);
   const { updateEvent, eventTypes } = useCalendarContext();
 
-  const [start, setStart] = useState(() =>
-    reformatDate(initialState.startTime)
-  );
-
+  const [start, setStart] = useState(() => reformatDate(initialState.start));
+  const [end, setEnd] = useState(() => reformatDate(initialState.end));
   /*const [value, setValue] = useState(RichTextEditor.createEmptyValue());
 
   const handlerSetValue = (value: any) => {
@@ -82,42 +82,49 @@ const AddEditForm: React.FC<Props> = ({
     console.log((formik.values.notes, ""));
   };*/
 
-  const [end, setEnd] = useState(() => reformatDate(initialState.endTime));
-
   const formik = useFormik({
     initialValues: {
       ...initialState,
     },
     onSubmit: (values, { resetForm }) => {
+      console.log(values);
       isEditing
         ? updateEvent!({
             ...values,
-            startTime: formatDate(start.date, start.time),
-            endTime: formatDate(end.date, end.time),
+            start: formatDate(start.date, start.time),
+            end: formatDate(end.date, end.time),
           })
         : submit({
             ...values,
-            startTime: formatDate(start.date, start.time),
-            endTime: formatDate(end.date, end.time),
+            start: formatDate(start.date, start.time),
+            end: formatDate(end.date, end.time),
           });
       cancel();
       resetForm({});
     },
   });
 
+  const [attendees, handleAttendees] = useState(formik.values.attendees);
+
   const addAttendeeHandler = (event: any) => {
     if (event.key === "Enter" && event.target.value) {
-      const attendees = [...formik.values.attendees];
-      attendees.unshift(event.target.value);
-      formik.values.attendees = attendees;
+      handleAttendees([...formik.values.attendees, event.target.value]);
+      formik.values.attendees = [...attendees, event.target.value];
       formik.setFieldTouched("attendees");
       event.target.value = "";
     }
   };
 
-  const handlerEventType = (value) => {
-    formik.values.eventType = value;
-    formik.setFieldTouched("eventType");
+  const removeAttendeeHandler = (id: number) => {
+    const newList = attendees!.filter((item, index) => index !== id);
+    handleAttendees(newList);
+    formik.values.attendees = newList;
+    formik.setFieldTouched("attendees");
+  };
+
+  const handlerChanges = (e, data) => {
+    formik.values[data.name] = data.value;
+    formik.setFieldTouched(data.name);
   };
 
   return (
@@ -146,7 +153,10 @@ const AddEditForm: React.FC<Props> = ({
               <LeftBody>
                 <GroupFields>
                   <Field width={5}>
-                    <Label>{Dictionary.addEditForm.title}</Label>
+                    <Label>
+                      {Dictionary.addEditForm.title}
+                      <Required>*</Required>
+                    </Label>
                     <Input
                       fluid
                       id="title"
@@ -163,19 +173,9 @@ const AddEditForm: React.FC<Props> = ({
                       name="eventType"
                       id="eventType"
                       value={formik.values.eventType}
-                      onChange={handlerEventType}
+                      onChange={handlerChanges}
                       listOptions={eventTypes}
-                    ></CustomDropdown>
-                    {/*<Dropdown
-                      placeholder="Typ událostí"
-                      selection
-                      fluid
-                      options={tagOptions}
-                      name="eventType"
-                      id="eventType"
-                      onChange={formik.handleChange}
-                      value={formik.values.eventType}
-                    />*/}
+                    />
                   </Field>
                 </GroupFields>
                 <GroupFields>
@@ -261,7 +261,7 @@ const AddEditForm: React.FC<Props> = ({
                       options={branchTypes}
                       name="branch"
                       id="branch"
-                      onChange={formik.handleChange}
+                      onChange={handlerChanges}
                       value={formik.values.branch}
                     />
                   </Field>
@@ -288,7 +288,7 @@ const AddEditForm: React.FC<Props> = ({
                   id="attendees"
                   addAttendee={addAttendeeHandler}
                   value={formik.values.attendees}
-                  //removeAttendee={this.removeAttendeeHandler}
+                  removeAttendee={removeAttendeeHandler}
                 />
               </RightBody>
             </FormWrapper>
