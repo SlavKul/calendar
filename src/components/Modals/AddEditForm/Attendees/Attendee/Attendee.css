@@ -1,9 +1,0 @@
-.times.circle.outline.icon.remove-attendee{
-    color: red;
-    float: right;
-    padding-top: 2px;
-}
-
-.times.circle.outline.icon.remove-attendee:hover{
-    font-size: 20px;
-}

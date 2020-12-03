@@ -1,6 +1,7 @@
 import React from "react";
 import { Icon, Image } from "semantic-ui-react";
 import { reformatDate } from "../../../utilities/moment-locale";
+import ReactHtmlParser from "react-html-parser";
 import { EventModel, useCalendarContext } from "../../App.definitions";
 import { Overlay } from "../AddEditForm/AddEditForm.styles";
 import {
@@ -17,6 +18,9 @@ import {
   DateBody,
   Divider,
   BackgroundImg,
+  Notes,
+  EventTypeColor,
+  EventTypeLabel,
 } from "./ApptDetails.styles";
 import logo from "../../../logo/logo_edited.png";
 import CustomTitle from "../../Modules/List/Event/EventDetails/CustomTitle/CustomTitle";
@@ -25,7 +29,10 @@ import { MyIcon } from "../../myComponents/Icon/MyIcon.styles";
 import Dictionary from "../../../utilities/dictionary";
 import moment from "moment";
 import Creator from "../../Modules/List/Event/EventDetails/Creator/Creator";
-import { textSpanContainsPosition } from "typescript";
+import AttendeesForm from "../AddEditForm/Attendees/AttendeesForm";
+import { Announcer } from "../../myComponents/Announcer/Announcer.styles";
+import EventAnnouncer from "../../myComponents/EventAnnouncer/EventAnnouncer";
+import { endianness } from "os";
 
 interface ApptDetailsProps {
   event: EventModel | null;
@@ -43,6 +50,7 @@ const ApptDetails: React.FC<ApptDetailsProps> = ({ event }) => {
     attendees,
     creator,
     created,
+    updated,
     id,
   } = event!;
   console.log(event);
@@ -52,18 +60,18 @@ const ApptDetails: React.FC<ApptDetailsProps> = ({ event }) => {
     handleConfirmModal,
     handleApptDetails,
   } = useCalendarContext();
-  const startDate = moment(start);
-  const endDate = moment(end);
+  const startDate = moment(start).utc();
+  const endDate = moment(end).utc();
 
-  console.log(startDate.format());
+  console.log(startDate, "HERE");
 
   return (
     <Overlay>
       <ApptDetailsModal>
         <ModalHeader>
-          <Header /*style={{ position: "absolute" }}*/>
-            <FlexRow>
-              <CustomTitle title={event!.title} />
+          <Header>
+            <FlexRow justifyContent={"space-between"}>
+              <CustomTitle title={title} />
               <FlexRight>
                 <MyIcon
                   name="edit"
@@ -98,29 +106,43 @@ const ApptDetails: React.FC<ApptDetailsProps> = ({ event }) => {
                 />
               </FlexRight>
             </FlexRow>
-            <FlexRow>
-              <p>{eventType?.name}</p>
+            <FlexRow justifyContent={"flex-start"}>
+              <EventTypeColor color={eventType?.color} />
+              <EventTypeLabel>{eventType?.name}</EventTypeLabel>
+              <EventAnnouncer
+                eventStart={start}
+                eventEnd={end}
+                eventCreate={created}
+                eventUpdate={updated}
+              />
             </FlexRow>
             {location && (
-              <FlexRow>
+              <FlexRow justifyContent={"flex-start"}>
                 <Location location={location} />
               </FlexRow>
             )}
-            <FlexRow>
+            <FlexRow justifyContent={"flex-start"}>
               <Creator creator={creator} creatingDate={created} />
             </FlexRow>
             <BackgroundImg></BackgroundImg>
           </Header>
-          {/*
-            <Image
-              src={logo}
-              alt="default img"
-              style={{ opacity: "0.6", display: "block", margin: "0 auto" }}
-            />
-          */}
         </ModalHeader>
         <ModalBody>
-          <div>Test</div>
+          {notes && <Notes>{ReactHtmlParser(notes)}</Notes>}
+          <div
+            style={{
+              width: "500px",
+              margin: "auto",
+            }}
+          >
+            <AttendeesForm
+              name="attendess"
+              id="attendees"
+              addAttendee={() => console.log("ADD ATTENDEE")}
+              value={attendees}
+              removeAttendee={() => console.log("REMOVE ATTENDEE")}
+            />
+          </div>
         </ModalBody>
         <ModalFooter>
           <EventDateBlock>

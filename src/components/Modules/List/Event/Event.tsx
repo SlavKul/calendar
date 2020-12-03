@@ -49,7 +49,7 @@ const Event: React.FC<EventProps> = ({ event }) => {
           showNotes={() => toggleNotes(!isNoteVisible)}
         />
       </EventContainer>
-      {isNoteVisible && event.notes ? <Notes notes={event.notes} /> : null}
+      {/*isNoteVisible && event.notes ? <Notes notes={event.notes} /> : null*/}
     </Card>
   );
 };

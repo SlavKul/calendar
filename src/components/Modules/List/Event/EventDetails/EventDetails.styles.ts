@@ -4,11 +4,6 @@ interface StyledProps {
   hover?: boolean;
 }
 
-const breatheAnimation = keyframes`
-    from { height: 0px; opacity: 0.6;}
-
-    to { height: auto; opacity: 1; }
-`;
 export const EventDetailsStyled = styled.div`
   flex-grow: 4;
   display: flex;
@@ -33,7 +28,6 @@ export const Footer = styled.div`
   margin-top: 5px;
   display: flex;
   justify-content: space-between;
-  //align-self: center;
 `;
 
 export const WrapperDetail = styled.div`
@@ -51,64 +45,10 @@ export const WrapperDetail = styled.div`
 `;
 
 export const StyledNotes = styled.div`
-  /*border: 1px solid #2C3E50;
-    border-radius: 5px;*/
-  width: 730px;
+  width: 100%;
   padding: 10px;
-  margin-top: 10px;
-  margin-right: 10px;
-  margin-left: 10px;
-  /*transition: all 3s ease;*/
-  /*animation-name: ${breatheAnimation};
-    animation-duration: 8s;
-    animation-fill-mode: forwards;*/
-  /*animation-name: changeLetter;
-    animation-duration: 0.1s;
-    @keyframes changeLetter {
-        from {
-            opacity: 0.5;
-            height: 0px;
-        }
-        to {
-            height:100px;
-            opacity: 1;
-        }
-    }*/
-  /*h3{
-        animation: changeLetter 0.9s 1 linear;
-        width:90%;
-    }
-    @keyframes changeLetter {
-        0% {
-            width: 10%;
-        }
-        100% {
-            width: 100%;
-        }
-    }*/
-
-  h3 {
-    content: " ";
-    display: block;
-    width: 50%;
-    height: 1px;
-    background: #2c3e50;
-    transition: all 0.9s;
-  }
-
-  /*animation: 0.2s slide-down;
-    margin-top:0%;
-    @keyframes slide-down {
-        from {
-            margin-top: -100%;
-            height: 300%; 
-        }
-
-        to {
-            margin-top: 0%;
-            height: 100%;
-        }
-    }*/
+  max-height: 200px;
+  overflow: auto;
 `;
 
 export const AttendeePopupContainer = styled.div`

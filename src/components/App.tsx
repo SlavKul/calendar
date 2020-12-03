@@ -35,24 +35,10 @@ interface CalendarViewProps {
   viewEnd: Moment | any;
 }
 
-const test = {
-  attendees: [],
-  branch: "BRNO",
-  created: "2020-11-08T17:28:16.172",
-  creator: "Kamil",
-  end: "2020-10-30T19:00:00",
-  eventType: { id: 1, name: "Obecny", color: "rgb(207, 4, 41)" },
-  id: 4,
-  image: null,
-  location: "Brno",
-  notes: "",
-  start: "2020-10-30T18:00:00",
-  title: "Testova udalost",
-  updated: "2020-11-08T17:28:16.172",
-};
 const App: React.FC = () => {
   console.log("%c APP is RENDERED", "background: #222; color: #da2442");
   const [currentDate, handleCurrentDate] = useState(moment().locale("cz"));
+  console.log(currentDate.format());
   const [addModal, handleAddEditModal] = useState({
     isOpen: false,
     isEditing: false,
@@ -92,7 +78,7 @@ const App: React.FC = () => {
     },
     onError: () => {
       handleMessageState({
-        status: "success",
+        status: "failed",
         message: `Chyba ${createEventError}`,
         visible: true,
       });
@@ -114,7 +100,7 @@ const App: React.FC = () => {
     },
     onError: () => {
       handleMessageState({
-        status: "success",
+        status: "failed",
         message: `Chyba`,
         visible: true,
       });
@@ -201,6 +187,7 @@ const App: React.FC = () => {
         setCalendarRef,
         currentDate,
         handleApptDetails,
+        handleMessageState,
       }}
     >
       <BrowserRouter>

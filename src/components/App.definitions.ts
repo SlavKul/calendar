@@ -20,6 +20,7 @@ export type CalendarContextType = {
   setCalendarRef: (value: any) => void;
   currentDate: Moment;
   handleApptDetails: (value: ApptDetailsModel) => void;
+  handleMessageState: (value: Partial<MessageModel>) => void;
 };
 
 export interface EventModel {

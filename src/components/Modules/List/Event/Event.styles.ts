@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const EventContainer = styled.div`
   display: flex;
-  height: 75px;
+  //height: 75px;
 `;
 
 export const Card = styled.div`

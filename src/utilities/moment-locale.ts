@@ -71,17 +71,15 @@ export const formatMomentTime = (date: string): string => {
 export const reformatDate = (
   date: string | undefined
 ): { date: string; time: string } => {
-  const momentDate = moment(date);
+  const momentDate = moment(date).utc();
+  console.log(momentDate);
   return {
     date: momentDate.format("DD.MM.YYYY"),
     time: momentDate.format("HH:mm"),
   };
 };
 
-export const formatDate = (date: string, time: string): string => {
-  const string = `${date}.${time}`;
-
-  const result = moment(string, "DD.MM.YYYY.HH:mm");
-  console.log(result.format("YYYY-MM-DDTHH:mm"), "MOMENT");
-  return result.format("YYYY-MM-DDTHH:mm");
+export const formatDate = (date: string, time: string): Moment => {
+  return moment(`${date}.${time}`, "DD.MM.YYYY.HH:mm");
 };
+//.format("YYYY-MM-DDTHH:mm");

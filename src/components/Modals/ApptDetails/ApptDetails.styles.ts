@@ -1,8 +1,12 @@
 import styled from "styled-components";
 import logo from "../../../logo/logo_edited.png";
 
+interface Props {
+  justifyContent: string;
+}
+
 export const ApptDetailsModal = styled.div`
-  width: 70%;
+  width: 850px;
   height: 600px;
   border-radius: 10px;
   background: #fff;
@@ -31,9 +35,10 @@ export const Header = styled.div`
 
 export const FlexRow = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: ${(props: Props) => props.justifyContent};
   width: 100%;
   padding: 1px 10px;
+  align-items: center;
 `;
 
 export const FlexRight = styled.div`
@@ -113,4 +118,25 @@ export const DateTitle = styled.p`
 export const DateBody = styled.p`
   margin: 0px;
   text-transform: uppercase;
+`;
+
+export const Notes = styled.div`
+  width: 100%;
+  padding: 10px;
+  //max-height: 200px;
+  overflow: auto;
+`;
+
+export const EventTypeColor = styled.div`
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background-color: ${(props) => props.color};
+  margin-right: 3px;
+`;
+
+export const EventTypeLabel = styled.p`
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0px 5px;
 `;

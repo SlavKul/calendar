@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
@@ -18,9 +18,7 @@ const CalendarView: React.FC = () => {
     handleApptDetails,
   } = useCalendarContext();
 
-  const calendarRef = useRef<FullCalendar>() as React.MutableRefObject<
-    FullCalendar
-  >;
+  const calendarRef = useRef<FullCalendar>() as React.MutableRefObject<FullCalendar>;
 
   let calendarEvents: any = [];
   for (const property in events) {
@@ -74,11 +72,6 @@ const CalendarView: React.FC = () => {
         end: _instance.range.end,
       },
     });
-    // console.log("I clicked Event", arg.event);
-  };
-
-  const test = () => {
-    console.log("I clicked date");
   };
 
   return (
@@ -95,7 +88,6 @@ const CalendarView: React.FC = () => {
       locale="cs"
       eventClick={handleDateClick}
       selectable={true}
-      dateClick={test}
       select={handleDateSelect}
       ref={calendarRef}
       displayEventEnd={true}
@@ -108,10 +100,6 @@ const CalendarView: React.FC = () => {
       }}
       moreLinkText={"udalosti"}
       expandRows={true}
-      //viewHeight={"calc(100%-60px)"}
-      //expandRows={true}
-      //height={"auto"}
-      //aspectRatio={1.6}
       contentHeight={"auto"} //set the appropriate height here
       customButtons={{
         next: {

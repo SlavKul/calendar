@@ -14,6 +14,11 @@ export default {
     editTitle: "Opravit událost",
     saveButton: "Potvrdit",
     editButton: "Ulozit zmeny",
+    img: "Obrazek",
+    uploadImgButton: "Pridat obrazek",
+    uploadImgLabel: 'Max velikost: 5Mb. Rozsireni: .jpg, .gif, .png"',
+    reqInputsError: "Povinne pole nejsou vyplnene",
+    dateValError: "Zacatek udalosti musi zacinat pred Koncem",
   },
   eventActions: {
     createSuccess: "Udalost byla uspesne vytvorena",

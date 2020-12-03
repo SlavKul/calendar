@@ -14,33 +14,7 @@ export const StyledMessage = styled.div`
   transform: translateX(-50%);
   display: flex;
   align-content: space-between;
-
-  /*-webkit-animation: cssAnimation 5s forwards;
-  animation: cssAnimation 5s forwards;
-  @keyframes cssAnimation {
-    0% {
-      opacity: 1;
-    }
-    90% {
-      opacity: 1;
-    }
-    100% {
-      //opacity: 0;
-      display: none;
-    }
-  }
-  @-webkit-keyframes cssAnimation {
-    0% {
-      opacity: 1;
-    }
-    90% {
-      opacity: 1;
-    }
-    100% {
-      //opacity: 0;
-      display: none;
-    }
-  }*/
+  z-index: 1;
 `;
 
 export const TextMessage = styled.span`

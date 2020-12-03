@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Dropdown, Input } from "semantic-ui-react";
 import CustomTitle from "../../Modules/List/Event/EventDetails/CustomTitle/CustomTitle";
 import {
@@ -19,36 +19,92 @@ import { DateInput, TimeInput } from "semantic-ui-calendar-react";
 import { useFormik } from "formik";
 import { EventModel } from "../../App.definitions";
 import { reformatDate, formatDate } from "../../../utilities/moment-locale";
-import TextArea from "../../myComponents/TextArea/TextArea";
 import { Button } from "../../myComponents/Button/Button.styles";
 import { Label, Required } from "../../myComponents/Label/Label.styles";
 import Dictionary from "../../../utilities/dictionary";
 import { useCalendarContext, branchTypes } from "../../App.definitions";
 import CustomDropdown from "../../myComponents/CustomDropdown/CustomDropdown";
-import { DisableValuesPropTypes } from "semantic-ui-calendar-react/dist/types/inputs/BaseInput";
+import ImageUploader from "react-images-upload";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import Editor from "ckeditor5-custom-build/build/ckeditor";
 
-//import RichTextEditor from "react-rte";
+const editorConfiguration = {
+  toolbar: {
+    items: [
+      "heading",
+      "|",
+      "bold",
+      "italic",
+      "|",
+      "bulletedList",
+      "numberedList",
+      "alignment",
+      "|",
+      "blockQuote",
+      "link",
 
-const tagOptions = [
-  {
-    key: "Sport",
-    text: "Sport",
-    value: "Sport",
-    label: { color: "yellow", empty: true, circular: true },
+      "highlight",
+
+      "code",
+      "insertTable",
+    ],
   },
-  {
-    key: "All Hands",
-    text: "All Hands",
-    value: "All Hands",
-    label: { color: "blue", empty: true, circular: true },
+  link: {
+    addTargetToExternalLinks: true,
   },
-  {
-    key: "Travel",
-    text: "Travel",
-    value: "Travel",
-    label: { color: "black", empty: true, circular: true },
+  table: {
+    contentToolbar: [
+      "tableColumn",
+      "tableRow",
+      "mergeTableCells",
+      "tableProperties",
+      "tableCellProperties",
+    ],
   },
-];
+  typing: {
+    transformations: {
+      extra: [
+        { from: ":)", to: "🙂" },
+        { from: ":+1:", to: "👍" },
+        { from: ":tada:", to: "🎉" },
+        { from: ":grinning:", to: "😀" },
+        { from: ":wink:", to: "😉" },
+        { from: ":cool:", to: "😎" },
+        { from: ":surprise:", to: "😮" },
+        { from: ":confusion:", to: "😕" },
+        { from: ":party:", to: "🥳" },
+        { from: ":cry:", to: "😢" },
+        { from: ":cry:", to: "😢" },
+        { from: ":love:", to: "❤️‍" },
+        { from: ":smile:", to: "😁" },
+        { from: ":roll:", to: "🤣" },
+      ],
+    },
+  },
+};
+
+const uploaderImgStyle = {
+  position: "relative",
+  padding: "20px 0px",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  flexDirection: "column",
+  margin: "0px auto 10px auto",
+  boxShadow: "none",
+  border: "1px solid rgba(34, 36, 38, 0.15)",
+  borderRadius: "3px",
+};
+
+const buttonStyle = {
+  border: "1px solid transparent",
+  fontWeight: "500",
+  color: "white",
+  outline: "none",
+  borderRadius: "4px",
+  padding: "10px",
+  backgroundColor: "rgba(7, 43, 49, 1)",
+};
 
 interface Props {
   initialState: EventModel;
@@ -68,39 +124,60 @@ const AddEditForm: React.FC<Props> = ({
     "background: #1d2594; color: #da2442"
   );
   console.log(initialState);
-  const { updateEvent, eventTypes } = useCalendarContext();
+  const { updateEvent, eventTypes, handleMessageState } = useCalendarContext();
+  const [requiredInputs, handleRequiredInputs] = useState(false);
+
+  const [pictures, setPictures] = useState<{ pictures: any }>({
+    pictures: null,
+  });
 
   const [start, setStart] = useState(() => reformatDate(initialState.start));
   const [end, setEnd] = useState(() => reformatDate(initialState.end));
-  /*const [value, setValue] = useState(RichTextEditor.createEmptyValue());
-
-  const handlerSetValue = (value: any) => {
-    setValue(value);
-    console.log(value.toString("html"));
-    formik.values.notes = value.toString("html");
-    console.log(formik.values);
-    console.log((formik.values.notes, ""));
-  };*/
 
   const formik = useFormik({
     initialValues: {
       ...initialState,
     },
     onSubmit: (values, { resetForm }) => {
-      console.log(values);
-      isEditing
-        ? updateEvent!({
-            ...values,
-            start: formatDate(start.date, start.time),
-            end: formatDate(end.date, end.time),
-          })
-        : submit({
-            ...values,
-            start: formatDate(start.date, start.time),
-            end: formatDate(end.date, end.time),
-          });
-      cancel();
-      resetForm({});
+      console.log(formatDate(start.date, start.time));
+      const validateReqValues = values.title && values.creator;
+      const validatedDate = formatDate(start.date, start.time).isSameOrBefore(
+        formatDate(end.date, end.time)
+      );
+      if (validateReqValues && validatedDate) {
+        isEditing
+          ? updateEvent!({
+              ...values,
+              start: formatDate(start.date, start.time).format(
+                "YYYY-MM-DDTHH:mm"
+              ),
+              end: formatDate(end.date, end.time).format("YYYY-MM-DDTHH:mm"),
+            })
+          : submit({
+              ...values,
+              start: formatDate(start.date, start.time).format(
+                "YYYY-MM-DDTHH:mm"
+              ),
+              end: formatDate(end.date, end.time).format("YYYY-MM-DDTHH:mm"),
+            });
+        handleRequiredInputs(false);
+        cancel();
+        resetForm({});
+      } else if (!validatedDate) {
+        handleRequiredInputs(false);
+        handleMessageState!({
+          visible: true,
+          status: "failed",
+          message: Dictionary.addEditForm.dateValError,
+        });
+      } else {
+        handleRequiredInputs(true);
+        handleMessageState!({
+          visible: true,
+          status: "failed",
+          message: Dictionary.addEditForm.reqInputsError,
+        });
+      }
     },
   });
 
@@ -125,6 +202,17 @@ const AddEditForm: React.FC<Props> = ({
   const handlerChanges = (e, data) => {
     formik.values[data.name] = data.value;
     formik.setFieldTouched(data.name);
+  };
+
+  const handleNotes = (event, editor) => {
+    const value = editor.getData();
+    formik.values.notes = value;
+    formik.setFieldTouched("notes");
+    console.log("EDITOR DATA", value);
+  };
+
+  const onUploadImg = (pictureFiles, pictureDataURLs) => {
+    setPictures({ pictures: pictureFiles });
   };
 
   return (
@@ -159,6 +247,8 @@ const AddEditForm: React.FC<Props> = ({
                     </Label>
                     <Input
                       fluid
+                      error={requiredInputs}
+                      maxLength="30"
                       id="title"
                       type="text"
                       name="title"
@@ -267,18 +357,29 @@ const AddEditForm: React.FC<Props> = ({
                   </Field>
                 </GroupFields>
                 <Field>
-                  <Label>{Dictionary.addEditForm.notes}</Label>
-                  <TextArea
-                    name="notes"
-                    id="notes"
-                    onChange={formik.handleChange}
-                    value={formik.values.notes}
+                  <Label>{Dictionary.addEditForm.img}</Label>
+                  <ImageUploader
+                    withPreview
+                    withIcon
+                    singleImage
+                    buttonText={Dictionary.addEditForm.uploadImgButton}
+                    onChange={onUploadImg}
+                    imgExtension={[".jpg", ".gif", ".png", ".gif"]}
+                    maxFileSize={5242880}
+                    fileContainerStyle={uploaderImgStyle}
+                    buttonStyles={buttonStyle}
+                    label={Dictionary.addEditForm.uploadImgLabel}
                   />
-                  {/*<RichTextEditor
-                    value={value}
-                    //toolbarConfig={toolbarConfig}
-                    onChange={handlerSetValue}
-                  />*/}
+                </Field>
+
+                <Field>
+                  <Label>{Dictionary.addEditForm.notes}</Label>
+                  <CKEditor
+                    config={editorConfiguration}
+                    editor={Editor}
+                    data={formik.values.notes}
+                    onChange={handleNotes}
+                  />
                 </Field>
               </LeftBody>
               <RightBody>
@@ -294,14 +395,19 @@ const AddEditForm: React.FC<Props> = ({
             </FormWrapper>
           </ModalBody>
           <ModalFooter>
-            <Input
-              id="creator"
-              type="text"
-              name="creator"
-              autoComplete="off"
-              onChange={formik.handleChange}
-              value={formik.values.creator}
-            />
+            <div>
+              <Label>{Dictionary.addEditForm.creator}</Label>
+              <Required>*</Required>
+              <Input
+                id="creator"
+                type="text"
+                name="creator"
+                error={requiredInputs}
+                autoComplete="off"
+                onChange={formik.handleChange}
+                value={formik.values.creator}
+              />
+            </div>
             <Button type="button" onClick={formik.submitForm}>
               {isEditing
                 ? Dictionary.addEditForm.editButton

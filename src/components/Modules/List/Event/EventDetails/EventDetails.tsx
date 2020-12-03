@@ -18,12 +18,13 @@ import {
   FlexWrapper,
   Wrapper,
 } from "../../../../myComponents/Wrapper/Wrapper.styles";
-import { Announcer } from "../../../../myComponents/Announcer/Announcer.styles";
 import { EventModel } from "../../../../App.definitions";
 import { useCalendarContext } from "../../../../App.definitions";
 import { Icon } from "semantic-ui-react";
 import Creator from "./Creator/Creator";
 import dictionary from "../../../../../utilities/dictionary";
+import Notes from "./Notes/Notes";
+import EventAnnouncer from "../../../../myComponents/EventAnnouncer/EventAnnouncer";
 
 interface EventDetailsProps {
   event: EventModel;
@@ -38,6 +39,18 @@ const EventDetails: React.FC<EventDetailsProps> = ({
   showNotes,
   event,
 }) => {
+  const {
+    start,
+    end,
+    title,
+    location,
+    attendees,
+    creator,
+    notes,
+    created,
+    updated,
+    id,
+  } = event;
   const {
     deleteEvent,
     openAddEditModal,
@@ -57,8 +70,13 @@ const EventDetails: React.FC<EventDetailsProps> = ({
   return (
     <EventDetailsStyled>
       <Header>
-        <CustomTitle title={event.title} />
-        <Announcer />
+        <CustomTitle title={title} />
+        <EventAnnouncer
+          eventStart={start}
+          eventEnd={end}
+          eventCreate={created}
+          eventUpdate={updated}
+        />
         <Wrapper>
           <>
             <MyHiddenFlowedIcon
@@ -86,10 +104,10 @@ const EventDetails: React.FC<EventDetailsProps> = ({
               onClick={() =>
                 handleConfirmModal!({
                   isVisible: true,
-                  onConfirm: () => deleteEvent!(event.id),
+                  onConfirm: () => deleteEvent!(id),
                   onCancel: () => handleConfirmModal!({ isVisible: false }),
                   header: "Smazat udalost",
-                  content: `Opravdu chcete smazat ${event.title}?`,
+                  content: `Opravdu chcete smazat ${title}?`,
                 })
               }
             />
@@ -121,18 +139,18 @@ const EventDetails: React.FC<EventDetailsProps> = ({
         </Wrapper>
       </Header>
       <Body>
-        <Time start={event.start} end={event.end} />
-        {event.location ? <Location location={event.location} /> : null}
-        <Attendees visible={isIconVisible} attendees={event.attendees} />
+        <Time start={start} end={end} />
+        {location ? <Location location={location} /> : null}
+        <Attendees visible={isIconVisible} attendees={attendees} />
       </Body>
       <Footer>
         <FlexWrapper>
-          {event.notes ? (
+          {notes ? (
             <>
               <Icon name="sticky note outline" />
-              <p style={{ marginRight: "5px" }}>
-                {dictionary.addEditForm.notes}
-              </p>
+
+              <p style={{ margin: "0px" }}>{dictionary.addEditForm.notes}</p>
+
               <MyRotatedIcon
                 className={test ? "clicked" : ""}
                 visible={1}
@@ -148,10 +166,11 @@ const EventDetails: React.FC<EventDetailsProps> = ({
         </FlexWrapper>
         <Wrapper>
           {isCreatorVisible && (
-            <Creator creator={event.creator} creatingDate={event.created} />
+            <Creator creator={creator} creatingDate={created} />
           )}
         </Wrapper>
       </Footer>
+      {isNoteVisible && notes ? <Notes notes={notes} /> : null}
     </EventDetailsStyled>
   );
 };

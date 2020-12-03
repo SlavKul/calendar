@@ -36,6 +36,7 @@ const AttendeesForm: React.FC<AttendeesFormProps> = ({
   return (
     <>
       <Input
+        maxLength="30"
         type="text"
         autoComplete="off"
         fluid

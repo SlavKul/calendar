@@ -1,6 +1,4 @@
 import { Moment } from "moment";
-import React, { useState } from "react";
-import { useQuery } from "react-query";
 import axios from "axios";
 
 export const getAddEditFormDefaultValues = (date: object): string => {

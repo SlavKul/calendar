@@ -8,4 +8,5 @@ export const Label = styled.span`
 export const Required = styled.span`
   margin-left: 1px;
   color: red;
+  margin-right: 5px;
 `;

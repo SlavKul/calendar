@@ -19,7 +19,12 @@ const Message: React.FC<MessageProps> = ({ messageState }) => {
 
   return initialMessageState.visible ? (
     <StyledMessage>
-      <Icon color="green" size="large" name="check" />
+      {messageState.status === "success" ? (
+        <Icon color="green" size="large" name="check" />
+      ) : (
+        <Icon color="red" size="large" name="ban" />
+      )}
+
       <TextMessage>{messageState.message}</TextMessage>
       <MyIcon
         name="close"
