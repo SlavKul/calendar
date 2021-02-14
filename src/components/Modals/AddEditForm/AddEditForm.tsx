@@ -139,7 +139,7 @@ const AddEditForm: React.FC<Props> = ({
       ...initialState,
     },
     onSubmit: (values, { resetForm }) => {
-      console.log({ ...values, image: pictures.pictures[0] }, "values");
+      console.log(pictures);
       console.log(formatDate(start.date, start.time));
       const validateReqValues = values.title && values.creator;
       const validatedDate = formatDate(start.date, start.time).isSameOrBefore(
@@ -156,6 +156,7 @@ const AddEditForm: React.FC<Props> = ({
             })
           : submit({
               ...values,
+              img: pictures,
               start: formatDate(start.date, start.time).format(
                 "YYYY-MM-DDTHH:mm"
               ),
@@ -213,8 +214,22 @@ const AddEditForm: React.FC<Props> = ({
   };
 
   const onUploadImg = (pictureFiles, pictureDataURLs) => {
+    let result;
+    const reader = new FileReader();
+    //reader.readAsBinaryString(pictureFiles[0]);
+    reader.readAsDataURL(pictureFiles[0]);
+    //reader.readAsArrayBuffer(pictureFiles[0]);
+    //console.log(result);
+    reader.onload = (event) => {
+      result = event.target?.result;
+      console.log(result);
+      setPictures(result);
+      //const result = new Uint32Array(event.target.result);
+      //const binary = String.fromCharCode.apply(null, result);
+      //console.log(binary, "binary");
+    };
+    console.log(reader, "reader");
     console.log(pictureFiles, pictureDataURLs);
-    setPictures({ pictures: pictureFiles });
   };
 
   return (
