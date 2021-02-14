@@ -22,7 +22,6 @@ import { EventModel } from "../../../../App.definitions";
 import { useCalendarContext } from "../../../../App.definitions";
 import { Icon } from "semantic-ui-react";
 import Creator from "./Creator/Creator";
-import dictionary from "../../../../../utilities/dictionary";
 import Notes from "./Notes/Notes";
 import EventAnnouncer from "../../../../myComponents/EventAnnouncer/EventAnnouncer";
 
@@ -141,29 +140,22 @@ const EventDetails: React.FC<EventDetailsProps> = ({
       <Body>
         <Time start={start} end={end} />
         {location ? <Location location={location} /> : null}
-        <Attendees visible={isIconVisible} attendees={attendees} />
+        <Attendees visible={isIconVisible} event={event} />
+        {notes && <Icon name="sticky note" />}
       </Body>
       <Footer>
-        <FlexWrapper>
-          {notes ? (
-            <>
-              <Icon name="sticky note outline" />
-
-              <p style={{ margin: "0px" }}>{dictionary.addEditForm.notes}</p>
-
-              <MyRotatedIcon
-                className={test ? "clicked" : ""}
-                visible={1}
-                hoverdirection="up"
-                name="chevron down"
-                onClick={() => {
-                  setTest(!test);
-                  showNotes();
-                }}
-              />
-            </>
-          ) : null}
-        </FlexWrapper>
+        {notes && (
+          <MyRotatedIcon
+            className={test ? "clicked" : ""}
+            visible={1}
+            hoverdirection="up"
+            name="chevron down"
+            onClick={() => {
+              setTest(!test);
+              showNotes();
+            }}
+          />
+        )}
         <Wrapper>
           {isCreatorVisible && (
             <Creator creator={creator} creatingDate={created} />

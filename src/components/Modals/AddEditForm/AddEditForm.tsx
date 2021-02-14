@@ -139,6 +139,7 @@ const AddEditForm: React.FC<Props> = ({
       ...initialState,
     },
     onSubmit: (values, { resetForm }) => {
+      console.log({ ...values, image: pictures.pictures[0] }, "values");
       console.log(formatDate(start.date, start.time));
       const validateReqValues = values.title && values.creator;
       const validatedDate = formatDate(start.date, start.time).isSameOrBefore(
@@ -212,6 +213,7 @@ const AddEditForm: React.FC<Props> = ({
   };
 
   const onUploadImg = (pictureFiles, pictureDataURLs) => {
+    console.log(pictureFiles, pictureDataURLs);
     setPictures({ pictures: pictureFiles });
   };
 
@@ -371,8 +373,7 @@ const AddEditForm: React.FC<Props> = ({
                     label={Dictionary.addEditForm.uploadImgLabel}
                   />
                 </Field>
-
-                <Field>
+                <Field style={{ paddingBottom: "20px" }}>
                   <Label>{Dictionary.addEditForm.notes}</Label>
                   <CKEditor
                     config={editorConfiguration}

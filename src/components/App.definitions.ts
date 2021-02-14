@@ -33,7 +33,7 @@ export interface EventModel {
   updated?: string;
   start?: string;
   end?: string;
-  eventType?: EventTypeModel;
+  eventType?: EventTypeModel | undefined;
   attendees?: string[];
   branch?: string;
 }
@@ -46,7 +46,7 @@ export const initialAddEditValues = {
   creator: "",
   created: "",
   updated: "",
-  eventType: { id: 1, color: "rgb(207, 4, 41)", name: "Obecny" },
+  eventType: undefined,
   branch: "",
   attendees: [],
   start: currentDate.clone().add(1, "hour").startOf("hour").format(),
@@ -109,7 +109,7 @@ export interface PageStateModel {
 
 export interface ApptDetailsModel {
   visible: boolean;
-  event: null | EventModel;
+  event: EventModel | null;
 }
 
 export const tabs = [

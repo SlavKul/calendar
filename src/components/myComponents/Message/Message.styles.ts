@@ -14,7 +14,7 @@ export const StyledMessage = styled.div`
   transform: translateX(-50%);
   display: flex;
   align-content: space-between;
-  z-index: 1;
+  z-index: 2;
 `;
 
 export const TextMessage = styled.span`

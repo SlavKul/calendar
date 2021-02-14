@@ -6,6 +6,7 @@ import Dictionary from "../../../utilities/dictionary";
 import { branchTypes } from "../../App.definitions";
 import { Dropdown } from "semantic-ui-react";
 import { useLocation } from "react-router-dom";
+import EventTypeLegenda from "../../myComponents/EventTypeLegenda/EventTypeLegenda";
 
 const Header: React.FC = ({ children }) => {
   console.log("%c HEADER IS RENDERED", "background: #ce1b6f; color: #da2442");
@@ -16,6 +17,7 @@ const Header: React.FC = ({ children }) => {
     handlePageState,
     addEditValues,
     setInitialAddEditValues,
+    eventTypes,
   } = useCalendarContext();
 
   const location = useLocation();
@@ -61,7 +63,10 @@ const Header: React.FC = ({ children }) => {
           </Button>
         </RightSide>
       </StyledHeader>
-      <Body>{children}</Body>
+      <Body>
+        <EventTypeLegenda eventTypes={eventTypes} />
+        {children}
+      </Body>
     </>
   );
 };

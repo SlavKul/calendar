@@ -12,7 +12,5 @@ export const Announcer = styled.div`
   margin-left: 10px;
   color: white;
   background-color: ${(props: MyProps) => props.color};
-  //margin-bottom: 1px;
-  //line-height: 1.1em;
-  font-family: "Roboto", sans-serif;
+  height: fit-content;
 `;

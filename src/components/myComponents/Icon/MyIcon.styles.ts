@@ -85,3 +85,25 @@ export const MyRotatedIcon = styled(MyFlowedIcon)`
     }
   }
 `;
+
+export const TestIcon = styled(MyIcon)`
+  &&& {
+    color: #666;
+    &:hover {
+      color: #2c3e50;
+      transform: scale3d(1.25, 1.25, 1);
+      transition: transform 0.2s;
+      cursor: pointer;
+    }
+    &.clicked {
+      -moz-transform: rotate(180deg);
+      -webkit-transform: rotate(180deg);
+      transform: rotate(180deg);
+      &:hover {
+        -moz-transform: rotate(180deg) scale3d(1.25, 1.25, 1);
+        -webkit-transform: rotate(180deg) scale3d(1.25, 1.25, 1);
+        transform: rotate(180deg) scale3d(1.25, 1.25, 1);
+      }
+    }
+  }
+`;

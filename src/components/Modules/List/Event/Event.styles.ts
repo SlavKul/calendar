@@ -7,6 +7,7 @@ export const EventContainer = styled.div`
 
 export const Card = styled.div`
   border-radius: 10px;
+  min-height: 85px;
   margin: 5px 10px 5px 10px;
   padding: 10px;
   background: white;

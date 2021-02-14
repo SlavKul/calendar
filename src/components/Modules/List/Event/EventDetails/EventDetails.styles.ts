@@ -12,7 +12,7 @@ export const EventDetailsStyled = styled.div`
 `;
 
 export const Header = styled.div`
-  margin: 0px;
+  margin: 5px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -52,6 +52,7 @@ export const StyledNotes = styled.div`
 `;
 
 export const AttendeePopupContainer = styled.div`
+  width: 200px;
   height: 200px;
   background: #ffffff;
   border: 1px solid #e5e5e5;
@@ -61,4 +62,10 @@ export const AttendeePopupContainer = styled.div`
   overflow: auto;
   padding: 2px;
   z-index: 1;
+`;
+
+export const CreatorName = styled.div`
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0px 5px 0px 0px;
 `;

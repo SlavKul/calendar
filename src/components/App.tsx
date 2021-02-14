@@ -28,6 +28,7 @@ import dictionary from "../utilities/dictionary";
 import CalendarView from "./Modules/Calendar/Calendar";
 import ConfirmModal from "./myComponents/ConfirmModal/ConfirmModal";
 import ApptDetails from "./Modals/ApptDetails/ApptDetails";
+import axios from "axios";
 
 interface CalendarViewProps {
   reference: any;
@@ -38,7 +39,6 @@ interface CalendarViewProps {
 const App: React.FC = () => {
   console.log("%c APP is RENDERED", "background: #222; color: #da2442");
   const [currentDate, handleCurrentDate] = useState(moment().locale("cz"));
-  console.log(currentDate.format());
   const [addModal, handleAddEditModal] = useState({
     isOpen: false,
     isEditing: false,
@@ -86,8 +86,18 @@ const App: React.FC = () => {
   });
 
   //EVENT TYPES QUERY
-  const { data: eventTypes } = useQuery("eventTypes", fetchEventTypes);
-  console.log(eventTypes);
+  const { data: eventTypes, isLoading: isEventTypeLoading } = useQuery(
+    "eventTypes",
+    async () => {
+      const eventType = await fetchEventTypes();
+      setInitialAddEditValues({ ...addEditValues, eventType: eventType[0] });
+      return eventType;
+    },
+    {
+      refetchOnWindowFocus: false,
+    }
+  );
+
   //UPDATE MUTATION
   const [updateEvent] = useMutation(updateEventMutation, {
     onSuccess: () => {
@@ -123,25 +133,27 @@ const App: React.FC = () => {
   );
 
   //FETCH EVENTS QUERY
-  const { isLoading, data: events, refetch } = useQuery("events", () => {
-    console.log("FETCH IS CALLED");
-    if (pageState.activeView === "/list") {
-      return getEvents(
-        currentDate.clone().subtract(10, "month").startOf("month"),
-        currentDate.clone().add(5, "year").startOf("month"),
-        pageState.branch.value
-      );
-    } else {
-      return getEvents(
-        calendarRef?.viewStart,
-        calendarRef?.viewEnd,
-        pageState.branch.value
-      );
+  const { isLoading: isFetchEventsLoading, data: events, refetch } = useQuery(
+    "events",
+    () => {
+      console.log("FETCH IS CALLED");
+      if (pageState.activeView === "/list") {
+        return getEvents(
+          currentDate.clone().subtract(10, "month").startOf("month"),
+          currentDate.clone().add(5, "year").startOf("month"),
+          pageState.branch.value
+        );
+      } else {
+        return getEvents(
+          calendarRef?.viewStart,
+          calendarRef?.viewEnd,
+          pageState.branch.value
+        );
+      }
     }
-  });
+  );
 
   useEffect(() => {
-    console.log(calendarRef);
     console.log("useEffect App");
     handleCurrentDate(moment().locale("cz"));
     setInitialAddEditValues({
@@ -153,11 +165,15 @@ const App: React.FC = () => {
     refetch();
   }, [pageState, calendarRef]);
 
-  const handleCancel = () => {
+  const resetInitialState = () =>
     setInitialAddEditValues({
       ...initialAddEditValues,
+      eventType: eventTypes[0],
       branch: pageState.branch.value,
     });
+
+  const handleCancel = () => {
+    resetInitialState();
     handleAddEditModal({ isOpen: false, isEditing: false });
   };
 
@@ -169,7 +185,13 @@ const App: React.FC = () => {
   const renderMessage = () => {
     return <Message messageState={messageState} />;
   };
-  console.log(events);
+
+  const isLoad =
+    deleteEventStatus === "loading" ||
+    createEventStatus === "loading" ||
+    isFetchEventsLoading ||
+    isEventTypeLoading;
+
   return (
     <CalendarContext.Provider
       value={{
@@ -191,15 +213,18 @@ const App: React.FC = () => {
       }}
     >
       <BrowserRouter>
+        {isLoad && (
+          <Dimmer active inverted blurring={1} style={{ height: "1000px" }}>
+            <Loader />
+          </Dimmer>
+        )}
         <Header>
           <Route exact path="/" render={() => <Redirect to={"/list"} />} />
           <Route
             path="/list"
             exact
             render={() =>
-              deleteEventStatus === "loading" ||
-              createEventStatus === "loading" ||
-              isLoading ? (
+              isLoad ? (
                 <Dimmer
                   active
                   inverted

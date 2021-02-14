@@ -3,6 +3,7 @@ import { StyledMonthTitle, Divider } from "./MonthTitle.styles";
 import {
   MyRotatedIcon,
   MyIcon,
+  TestIcon,
 } from "../../../myComponents/Icon/MyIcon.styles";
 import { Header } from "../Event/EventDetails/EventDetails.styles";
 import { Badge } from "../../../myComponents/Badge/Badge.styles";
@@ -30,7 +31,8 @@ const MonthTitle: React.FC<MonthTitleProps> = ({ date, events }) => {
         <StyledMonthTitle>{monthName.format("MMMM YYYY")}</StyledMonthTitle>
         <Badge>{events.length}</Badge>
         <Wrapper>
-          <MyIcon
+          <TestIcon
+            className={isEventShown ? "clicked" : ""}
             name="chevron down"
             onClick={() => showEvent(!isEventShown)}
           />

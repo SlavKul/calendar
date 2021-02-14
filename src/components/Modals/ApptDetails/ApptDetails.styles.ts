@@ -2,11 +2,12 @@ import styled from "styled-components";
 import logo from "../../../logo/logo_edited.png";
 
 interface Props {
-  justifyContent: string;
+  justifyContent?: string;
+  width?: string;
 }
 
 export const ApptDetailsModal = styled.div`
-  width: 850px;
+  width: ${(props: Props) => props.width};
   height: 600px;
   border-radius: 10px;
   background: #fff;
@@ -69,9 +70,11 @@ export const BackgroundImg = styled.div`
 `;
 
 export const ModalBody = styled.div`
+  display: flex;
+  justify-content: space-between;
   overflow: auto;
-  flex: 2 1 0;
-  //flex-grow: 3;
+  height: 500px;
+  width: 100%;
   padding: 20px;
   background-color: rgb(240, 240, 240);
 `;
@@ -124,6 +127,15 @@ export const Notes = styled.div`
   width: 100%;
   padding: 10px;
   //max-height: 200px;
+  overflow: auto;
+  margin-right: 5px;
+`;
+
+export const Attendees = styled.div`
+  width: 250px;
+  margin: 0px auto;
+  background-color: white;
+  border-radius: 10px;
   overflow: auto;
 `;
 

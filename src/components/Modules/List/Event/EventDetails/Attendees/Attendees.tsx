@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Icon } from "semantic-ui-react";
-import { WrapperDetail } from "../EventDetails.styles";
+import { EventModel } from "../../../../../App.definitions";
+import { AttendeePopupContainer, WrapperDetail } from "../EventDetails.styles";
 import AttendeesPopup from "./AttendeesPopup/AttendeesPopup";
 
 interface AttendeesProps {
   visible?: boolean;
-  attendees: string[] | undefined;
+  //attendees: string[] | undefined;
+  event: EventModel;
 }
 
-const Attendees: React.FC<AttendeesProps> = ({ visible, attendees }) => {
+const Attendees: React.FC<AttendeesProps> = ({ visible, event }) => {
   const [isAttendeePopup, showAttendeePopup] = useState<boolean>(false);
 
   useEffect(() => {
@@ -31,9 +33,11 @@ const Attendees: React.FC<AttendeesProps> = ({ visible, attendees }) => {
         onClick={() => showAttendeePopup(true)}
         onMouseLeave={() => showAttendeePopup(false)}
       >
-        {generateAttendeeTitle(attendees!.length)}
+        {generateAttendeeTitle(event.attendees!.length)}
         {isAttendeePopup && visible ? (
-          <AttendeesPopup attendees={attendees} />
+          <AttendeePopupContainer>
+            <AttendeesPopup event={event} />
+          </AttendeePopupContainer>
         ) : null}
       </WrapperDetail>
     </>

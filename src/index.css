@@ -195,4 +195,6 @@ code {
   margin: 5px 0px 0px 0px !important;
 }
 
-/*.modal-input { &.error { input { background-color: #fff6f6; border-color: #e0b4b4; color: #9f3a38; }*/
+.ui.mini.input {
+  margin: 6px 3px 0px 3px;
+}

@@ -1,6 +1,5 @@
 import React from "react";
-import { Icon, Image } from "semantic-ui-react";
-import { reformatDate } from "../../../utilities/moment-locale";
+import { Icon } from "semantic-ui-react";
 import ReactHtmlParser from "react-html-parser";
 import { EventModel, useCalendarContext } from "../../App.definitions";
 import { Overlay } from "../AddEditForm/AddEditForm.styles";
@@ -21,18 +20,16 @@ import {
   Notes,
   EventTypeColor,
   EventTypeLabel,
+  Attendees,
 } from "./ApptDetails.styles";
-import logo from "../../../logo/logo_edited.png";
 import CustomTitle from "../../Modules/List/Event/EventDetails/CustomTitle/CustomTitle";
 import Location from "../../Modules/List/Event/EventDetails/Location/Location";
 import { MyIcon } from "../../myComponents/Icon/MyIcon.styles";
 import Dictionary from "../../../utilities/dictionary";
 import moment from "moment";
 import Creator from "../../Modules/List/Event/EventDetails/Creator/Creator";
-import AttendeesForm from "../AddEditForm/Attendees/AttendeesForm";
-import { Announcer } from "../../myComponents/Announcer/Announcer.styles";
 import EventAnnouncer from "../../myComponents/EventAnnouncer/EventAnnouncer";
-import { endianness } from "os";
+import AttendeesPopup from "../../Modules/List/Event/EventDetails/Attendees/AttendeesPopup/AttendeesPopup";
 
 interface ApptDetailsProps {
   event: EventModel | null;
@@ -67,7 +64,7 @@ const ApptDetails: React.FC<ApptDetailsProps> = ({ event }) => {
 
   return (
     <Overlay>
-      <ApptDetailsModal>
+      <ApptDetailsModal width={notes ? "1000px" : "500px"}>
         <ModalHeader>
           <Header>
             <FlexRow justifyContent={"space-between"}>
@@ -75,7 +72,7 @@ const ApptDetails: React.FC<ApptDetailsProps> = ({ event }) => {
               <FlexRight>
                 <MyIcon
                   name="edit"
-                  style={{ fontSize: "20px" }}
+                  style={{ fontSize: "18px" }}
                   onClick={() => {
                     openAddEditModal!(true, event!);
                     handleApptDetails!({ visible: false, event: null });
@@ -83,7 +80,7 @@ const ApptDetails: React.FC<ApptDetailsProps> = ({ event }) => {
                 />
                 <MyIcon
                   name="trash alternate"
-                  style={{ fontSize: "20px" }}
+                  style={{ fontSize: "18px" }}
                   onClick={() => {
                     handleConfirmModal!({
                       isVisible: true,
@@ -99,7 +96,7 @@ const ApptDetails: React.FC<ApptDetailsProps> = ({ event }) => {
                 />
                 <MyIcon
                   name="close"
-                  style={{ fontSize: "20px" }}
+                  style={{ fontSize: "18px" }}
                   onClick={() =>
                     handleApptDetails!({ visible: false, event: null })
                   }
@@ -129,20 +126,11 @@ const ApptDetails: React.FC<ApptDetailsProps> = ({ event }) => {
         </ModalHeader>
         <ModalBody>
           {notes && <Notes>{ReactHtmlParser(notes)}</Notes>}
-          <div
-            style={{
-              width: "500px",
-              margin: "auto",
-            }}
-          >
-            <AttendeesForm
-              name="attendess"
-              id="attendees"
-              addAttendee={() => console.log("ADD ATTENDEE")}
-              value={attendees}
-              removeAttendee={() => console.log("REMOVE ATTENDEE")}
-            />
-          </div>
+          {event && (
+            <Attendees>
+              <AttendeesPopup event={event} />
+            </Attendees>
+          )}
         </ModalBody>
         <ModalFooter>
           <EventDateBlock>
